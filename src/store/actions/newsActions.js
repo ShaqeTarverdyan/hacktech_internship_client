@@ -233,7 +233,7 @@ export const getTypes = () => {
 }
 
 export const deleteImageFromBackend = (path, newsId) => {
-    alert("Do You Want really Delete File ???")
+    alert("This Image is delete from all places")
     return dispatch => {
         dispatch({type: CONSTANTS.DELETE_IMAGE_START})
         Axios
@@ -257,7 +257,7 @@ export const deleteImageFromBackend = (path, newsId) => {
 }
 
 export const deleteFileFromBackend = (path, newsId) => {
-    alert("Do You Want really Delete File ???")
+    alert("This file is delete from all places")
     return dispatch => {
         dispatch({type: CONSTANTS.DELETE_IMAGE_START})
         Axios
