@@ -102,11 +102,9 @@ export const getAdmin = (admin_id) => {
 } 
 
 export const updateAdminDetails = (admin, history) => {
-    const { id, firstname, lastname, email } = admin;
+    const { firstname, lastname, email } = admin;
     return dispatch => {
-        dispatch({type: CONSTANTS.UPDATE_ADMIN_START});
         Axios.put(`/admin/${admin.id}`, {
-            id: id,
             firstname: firstname,
             lastname: lastname,
             email: email,
@@ -117,11 +115,12 @@ export const updateAdminDetails = (admin, history) => {
             }
         })
         .then(res => {
-            dispatch({type: CONSTANTS.UPDATE_ADMIN_SUCCESS, payload: res.data.admin});
-            history.push("/profile")
+            if(res.status === 200) {
+                history.push("/profile")
+            }
         })
         .catch(err => {
-            dispatch({type: CONSTANTS.UPDATE_ADMIN_ERROR, payload: err.message});
+            dispatch({type: CONSTANTS.UPDATE_ADMIN_ERROR, payload: err.response});
         })
     }
 }

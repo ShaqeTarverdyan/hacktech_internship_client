@@ -47,7 +47,6 @@ export default (state = initialState, {type, payload}) => {
             return {...newState, loading: false, error: payload}
         }
         case CONSTANTS.LOGIN_ERROR: {
-            console.log('payload',payload)
             const messages = payload.data.errors.map(({param, msg}) => {
                 return {[param]: msg} 
              })
@@ -109,7 +108,15 @@ export default (state = initialState, {type, payload}) => {
                 }
         }
         case CONSTANTS.UPDATE_ADMIN_ERROR: {
-            return {...newState, loading: false, error: null}
+            const messages = payload.data.errors.map(({param, msg}) => {
+                return {[param]: msg} 
+             })
+             return {
+                 ...newState, 
+                 loading: false, 
+                 error: payload.data.message, 
+                 errormessages: [...messages]
+             }
         }
 
         case CONSTANTS.LOGOUT : {
