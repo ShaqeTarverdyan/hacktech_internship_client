@@ -20,6 +20,7 @@ const AuthForm = ({
     isForSignUp, 
     isInvitaion  ,
     validationSchema,
+    title
 }) => {
     const error = useSelector(state => state.auth.error);
     const loading = useSelector(state => state.auth.loading);
@@ -44,7 +45,7 @@ const AuthForm = ({
                     {
                         ({isValid, setSubmitting}) => (
                             <StyledForm>
-                                <h1>Register</h1>
+                                <h1>{title}</h1>
                                 <Field
                                     type="text"
                                     name="firstname"

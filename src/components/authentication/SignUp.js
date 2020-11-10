@@ -36,6 +36,7 @@ const SignUp = () => {
             butonTitle="Register"
             isForSignUp={true}
             validationSchema={SignUpValidation}
+            title="Register"
         />
     )
 }
