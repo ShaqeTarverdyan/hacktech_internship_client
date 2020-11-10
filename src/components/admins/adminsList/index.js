@@ -6,6 +6,7 @@ import Loading from "../../loader";
 import { StyledSelect, StyledOption } from '../../../generalStyles';
 import EmptyPage from '../../emptyPage';
 import { useSelector, useDispatch } from 'react-redux';
+import { isAuth } from '../../../helpers/isAuth';
 
 const StyledAdminsList = styled.div`
   display: grid;
@@ -31,7 +32,9 @@ const Label = styled.label`
 const Wrapper = styled.div``;
 
 const AdminsList = ( ) => {
-
+  useEffect(() => {
+    isAuth()
+  },[])
   const admins = useSelector(state =>  state.auth.admins);
   const admin_id = useSelector(state =>  state.auth.admin_id);
   const loading = useSelector(state =>  state.auth.loading);

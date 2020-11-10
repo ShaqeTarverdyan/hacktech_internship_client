@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Field } from 'formik';
 
 import { roles } from '../../../constants';
@@ -10,6 +10,7 @@ import { Container, FormWrapper, StyledForm, StyledSelect, StyledOption } from '
 import { sendInvitation } from '../../../store/actions/authActions';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
+import { isAuth } from '../../../helpers/isAuth';
 
 export const InvitationValidation = Yup.object().shape({
     email: Yup.string()
@@ -20,6 +21,9 @@ export const InvitationValidation = Yup.object().shape({
   });
 
 const Invitation = () => {
+    useEffect(() => {
+        isAuth()
+    },[])
     const message = useSelector(state => state.auth.message);
     const loading = useSelector(state => state.auth.loading);
     const dispatch= useDispatch();

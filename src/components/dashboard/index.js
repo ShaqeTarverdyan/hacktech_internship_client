@@ -4,9 +4,13 @@ import NewsList from '../news/newsList';
 import { getNewsList } from '../../store/actions/newsActions';
 import Loading from '../loader';
 import { useSelector, useDispatch } from 'react-redux';
+import { isAuth } from '../../helpers/isAuth';
 
 
 const Dashboard = () => {
+    useEffect(() => {
+        isAuth()
+    },[])
     const newsList = useSelector(state => state.news.newsList);
     const dispatch = useDispatch();
     let history = useHistory();

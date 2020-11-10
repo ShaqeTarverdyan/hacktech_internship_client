@@ -6,10 +6,14 @@ import Button from '../../UI/Button';
 import Loading from '../../loader';
 import Input from '../../UI/Input';
 import { useSelector, useDispatch } from 'react-redux';
+import { isAuth } from '../../../helpers/isAuth';
 
 import { StyledForm, StyledSelect, StyledOption } from '../../../generalStyles';
 
 const AttachAdmin = ({ isForSendPdf,linkedNewsIds,newsId }) => {
+    useEffect(() => {
+        isAuth()
+    },[])
     const admins = useSelector(state =>  state.auth.admins);
     const attachedAdmins = useSelector(state =>  state.news.attachedAdmins);
     const loading = useSelector(state =>  state.news.loading);

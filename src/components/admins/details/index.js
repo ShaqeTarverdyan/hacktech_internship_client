@@ -6,7 +6,7 @@ import Loading from '../../loader';
 import styled from 'styled-components';
 import { Wrapper } from '../../../generalStyles';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { isAuth } from '../../../helpers/isAuth';
 
 const StyledDetails = styled.div`
     width: 100%
@@ -18,13 +18,15 @@ const P = styled.p`
     color: var(--color-text)
 `;
 const Details = () => {
+    useEffect(() => {
+        isAuth()
+    },[])
     const admin = useSelector(state => state.auth.admin);
     const dispatch= useDispatch();
     let history = useHistory();
     const historyPathname = history.location.pathname;
     const splitedPathname = historyPathname.split(/([0-9]+)/);
     const currentAdminId = JSON.parse(splitedPathname[1]);
-
     useEffect(() => {
         dispatch(getAdmin(currentAdminId));
     }, [getAdmin, currentAdminId]);
@@ -40,11 +42,14 @@ const Details = () => {
                     <P>Email: {admin.email}</P>
                     <P>Role: {admin.role}</P>
                     <P>IsActive: {admin.isActive === false ? 'false' : 'true'}</P>
-                    <PanelAdminActions 
-                        id={admin.id} 
-                        status={admin.isActive}
-                        isConfirmed={admin.isConfirmed}
-                    />
+                   {
+                       admin.role === 'panel' &&
+                       <PanelAdminActions 
+                            id={admin.id} 
+                            status={admin.isActive}
+                            isConfirmed={admin.isConfirmed}
+                        />
+                   } 
                 </StyledDetails> : <Loading/>
             }
         </Wrapper>

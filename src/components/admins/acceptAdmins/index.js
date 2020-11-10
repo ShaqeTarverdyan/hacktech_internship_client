@@ -2,11 +2,14 @@ import React, { useEffect } from 'react';
 import { getAdmins } from '../../../store/actions/authActions';
 import PanelAdminActions from '../panelAdminActions';
 import { useSelector, useDispatch } from 'react-redux';
+import { isAuth } from '../../../helpers/isAuth';
 
 const AcceptAdmins = () => {
     const admins = useSelector(state => state.auth.admins);
-
     const dispatch = useDispatch();
+    useEffect(() => {
+        isAuth()
+    },[])
     useEffect(() => {
         dispatch(getAdmins());
     }, [getAdmins, JSON.stringify(admins)]);

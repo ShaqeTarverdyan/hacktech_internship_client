@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { addNews, getTypes } from '../../../store/actions/newsActions';
 import NewsForm from '../newsForm';
-import Dashboard from '../../dashboard';
 import * as Yup from 'yup';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { isAuth } from '../../../helpers/isAuth';
 
 export const NewsValidation = Yup.object().shape({
     title: Yup.string()
@@ -15,7 +15,9 @@ export const NewsValidation = Yup.object().shape({
   });
 
 const AddNews = () => {
-    const admin_id = useSelector(state => state.auth.admin_id);
+  useEffect(() => {
+    isAuth()
+  },[])
 
     const dispatch = useDispatch();
 
@@ -23,7 +25,6 @@ const AddNews = () => {
         dispatch(getTypes());
     },[getTypes])
     return (
-        admin_id ? 
         <NewsForm 
             formSubmitFunction={addNews}
             buttonTitle="Add News"
@@ -33,12 +34,10 @@ const AddNews = () => {
                 content: '',
                 typeId: '',
                 files: [],
-                admin_id: admin_id
             }}
             isGetingImageUrl={false}
             validationSchema={NewsValidation}
         />
- : <Dashboard/>
     )
 }
 
