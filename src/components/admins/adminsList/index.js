@@ -72,7 +72,6 @@ const AdminsList = ( ) => {
             <AdminItem
               key={admin.id}
               item={admin}
-              signedAdminRole={signedAdmins !== undefined && signedAdmins.role}
             />
           ))
         ) : (

@@ -26,7 +26,7 @@ const ButtonStyle = {
     "margin": "0",
     "borderRadius": "1rem"
 }
-const AdminItem = ({ item, signedAdminRole }) => {
+const AdminItem = ({ item }) => {
     const { id, email, role } = item;
     const dispatch = useDispatch()
     return (
@@ -35,21 +35,17 @@ const AdminItem = ({ item, signedAdminRole }) => {
                 <p>Email: {email}</p>
                 <p>Role: {role}</p>
             </div>
-
-            {
-                signedAdminRole === 'super' &&
-                <Actions>
-                    <Link to={{
-                        pathname: `/admin-details/${id}`,
-                        aboutProps: {
-                            id: id
-                        }                 
-                    }}>
-                        <Button style={ButtonStyle}>Details</Button>
-                    </Link>
-                    <Button style={ButtonStyle} onClick={() => dispatch(deleteAdmin(id))}>Delete</Button>
-                </Actions>
-            }
+            <Actions>
+                <Link to={{
+                    pathname: `/admin-details/${id}`,
+                    aboutProps: {
+                        id: id
+                    }                 
+                }}>
+                    <Button style={ButtonStyle}>Details</Button>
+                </Link>
+                <Button style={ButtonStyle} onClick={() => dispatch(deleteAdmin(id))}>Delete</Button>
+            </Actions>
         </StyledItem>
     )
 }
