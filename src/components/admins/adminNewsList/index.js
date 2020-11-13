@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import NewsList from '../../news/newsList';
-import { getMyNewslist } from '../../../store/actions/newsActions';
+import { getAttachedNews } from '../../../store/actions/action-creators/auth-action-creators';
 import { useSelector, useDispatch } from 'react-redux';
 import { isAuth } from '../../../helpers/isAuth';
 
@@ -14,8 +14,8 @@ const AdminNewsList = () => {
     },[]);
 
     useEffect(() => {
-        dispatch(getMyNewslist(localStorage.getItem('admin_id')))
-    }, [getMyNewslist]);
+        dispatch(getAttachedNews())
+    }, [getAttachedNews]);
 
     return (
         <>

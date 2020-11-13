@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getInvitationData, signUp } from '../../../store/actions/authActions';
+import { getInvitationData, signUp } from '../../../store/actions/action-creators/auth-action-creators';
 import AuthForm from '../../authentication/AuthForm';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';

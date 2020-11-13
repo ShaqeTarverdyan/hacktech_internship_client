@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getAdmins } from '../../../store/actions/authActions';
+import { getAdmins } from '../../../store/actions/action-creators/auth-action-creators';
 import PanelAdminActions from '../panelAdminActions';
 import { useSelector, useDispatch } from 'react-redux';
 import { isAuth } from '../../../helpers/isAuth';

@@ -1,10 +1,14 @@
 import React, { useEffect } from 'react';
 import { Formik, Field } from 'formik';
-import { attachAdminToNews, getAttachedAdmins, sendDataToUserWithPdfFormat } from '../../../store/actions/newsActions';
-
+import { 
+    attachAdminToNews, 
+    getAttachedAdmins, 
+    sendDataToUserWithPdfFormat 
+} from '../../../store/actions/action-creators/news-action-creators';
 import Button from '../../UI/Button';
 import Loading from '../../loader';
 import Input from '../../UI/Input';
+import Message from '../../UI/Message';
 import { useSelector, useDispatch } from 'react-redux';
 import { isAuth } from '../../../helpers/isAuth';
 
@@ -17,7 +21,7 @@ const AttachAdmin = ({ isForSendPdf,linkedNewsIds,newsId }) => {
     const admins = useSelector(state =>  state.auth.admins);
     const attachedAdmins = useSelector(state =>  state.news.attachedAdmins);
     const loading = useSelector(state =>  state.news.loading);
-    
+    const message = useSelector(state => state.news.message)
     const notAttachedAdmins = admins.filter(({ id: id1 }) => !attachedAdmins.some(({ id: id2 }) => id2 === id1));
     
     const dispatch = useDispatch()
@@ -68,6 +72,7 @@ const AttachAdmin = ({ isForSendPdf,linkedNewsIds,newsId }) => {
 
                         }
                         <Button  type="submit">{loading ? <Loading/> : 'Sent'}</Button>
+                        <Message success show={message}>{message}</Message>
                     </StyledForm>
                 )
             }

@@ -1,6 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import { getNewsList, getTypes } from '../../../store/actions/newsActions';
-import { showModal } from '../../../store/actions/appActions';
+import { showModal } from '../../../store/actions/action-creators/app-action-creators';
 import Pagination from '../../pagination';
 import styled from 'styled-components';
 import Modale from '../../Modale';
@@ -14,6 +13,7 @@ import EmptyPage from '../../emptyPage';
 import TypesList from '../typesList';
 import Button from '../../UI/Button';
 import { useSelector, useDispatch } from 'react-redux';
+import { getNewsList, getTypes } from '../../../store/actions/action-creators/news-action-creators'
 
 
 const Wrapper = styled.div`
@@ -49,7 +49,7 @@ const NewsList = ({
     }
 
     useEffect(() => {
-        dispatch(getTypes())
+        showTypes && dispatch(getTypes())
     },[getTypes]);
 
     const history = useHistory();

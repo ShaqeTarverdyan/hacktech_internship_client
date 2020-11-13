@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { logOut } from '../../store/actions/authActions';
-import { getAdmins } from '../../store/actions/authActions';
+import { logOut } from '../../store/actions/action-creators/auth-action-creators';
+import { getAdmins } from '../../store/actions/action-creators/auth-action-creators';
 import { useSelector, useDispatch } from 'react-redux';
 
 
@@ -42,7 +42,10 @@ const SignedInLinks = () => {
             {
                 curentAdmin  && 
                 curentAdmin.role === 'super' && 
-                <LI><StyledNavLink to="/invitation">invite NewAdmin</StyledNavLink></LI>
+                <>
+                    <LI><StyledNavLink to="/invitation">invite NewAdmin</StyledNavLink></LI>
+                    <LI><StyledNavLink to="/accept-panel-admins-page">Accept Admins</StyledNavLink></LI>
+                </>
             }
             <LI><StyledNavLink to="/" onClick={() => dispatch(logOut())}>Log Out</StyledNavLink></LI>
         </UL>

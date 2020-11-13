@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getAdmin } from '../../../store/actions/authActions';
+import { getAdmin } from '../../../store/actions/action-creators/auth-action-creators';
 import { useHistory } from 'react-router-dom';
 import PanelAdminActions from '../panelAdminActions';
 import Loading from '../../loader';
@@ -27,6 +27,9 @@ const Details = () => {
     const historyPathname = history.location.pathname;
     const splitedPathname = historyPathname.split(/([0-9]+)/);
     const currentAdminId = JSON.parse(splitedPathname[1]);
+
+    const admins = useSelector(state =>  state.auth.admins);
+    const admin_id = useSelector(state =>  state.auth.admin_id);
     useEffect(() => {
         dispatch(getAdmin(currentAdminId));
     }, [getAdmin, currentAdminId]);

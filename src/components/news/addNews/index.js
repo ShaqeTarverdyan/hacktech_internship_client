@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { addNews, getTypes } from '../../../store/actions/newsActions';
+import { addNews, getTypes } from '../../../store/actions/action-creators/news-action-creators';
 import NewsForm from '../newsForm';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';

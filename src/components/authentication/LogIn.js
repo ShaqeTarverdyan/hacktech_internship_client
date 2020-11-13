@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { logIn, clearMessages } from '../../store/actions/authActions';
 import { useHistory } from 'react-router-dom';
 
 import { Formik, Field } from 'formik';
@@ -10,7 +9,7 @@ import Button from '../UI/Button';
 import Message from '../UI/Message';
 import {generateCustomError } from '../../helpers/generateCustomError';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { clearMessages, logIn } from '../../store/actions/action-creators/auth-action-creators';
 import { Container, FormWrapper, StyledForm } from '../../generalStyles';
 
 const LoginInValidation = Yup.object().shape({

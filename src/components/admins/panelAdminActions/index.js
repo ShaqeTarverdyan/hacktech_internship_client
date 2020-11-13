@@ -1,5 +1,5 @@
 import React from 'react';
-import { togglePanelAdminStatus, toggleConfirmation } from '../../../store/actions/authActions';
+import { togglePanelAdminStatus, toggleConfirmation } from '../../../store/actions/action-creators/auth-action-creators';
 import Button from '../../UI/Button';
 import { Buttonstyle } from '../../news/newsItem';
 import { useDispatch } from 'react-redux';

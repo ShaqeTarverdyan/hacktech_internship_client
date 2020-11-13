@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 
-import { setAdminIdinStore } from '../../store/actions/authActions';
+import { setAdminIdinStore } from '../../store/actions/action-creators/auth-action-creators';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Nav = styled.nav`

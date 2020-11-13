@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { closeModal } from '../../store/actions/appActions';
+import { closeModal } from '../../store/actions/action-creators/app-action-creators';
 import { FormWrapper } from '../../generalStyles';
 import { useSelector, useDispatch } from 'react-redux';
 

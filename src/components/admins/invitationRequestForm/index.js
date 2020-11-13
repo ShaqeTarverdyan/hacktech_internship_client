@@ -7,7 +7,7 @@ import Button from '../../UI/Button';
 import Message from '../../UI/Message';
 import Loading from '../../loader';
 import { Container, FormWrapper, StyledForm, StyledSelect, StyledOption } from '../../../generalStyles';
-import { sendInvitation } from '../../../store/actions/authActions';
+import { sendInvitation } from '../../../store/actions/action-creators/auth-action-creators';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { isAuth } from '../../../helpers/isAuth';

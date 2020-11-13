@@ -1,27 +1,32 @@
 import React, {useEffect } from 'react';
 import { useHistory }  from 'react-router-dom';
 import NewsList from '../news/newsList';
-import { getNewsList } from '../../store/actions/newsActions';
+import { getNewsList } from '../../store/actions/action-creators/news-action-creators'
 import Loading from '../loader';
 import { useSelector, useDispatch } from 'react-redux';
 import { isAuth } from '../../helpers/isAuth';
 
 
 const Dashboard = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getNewsList())
+    },[getNewsList])
+
+
     useEffect(() => {
         isAuth()
     },[])
     const newsList = useSelector(state => state.news.newsList);
-    const dispatch = useDispatch();
     let history = useHistory();
     const adminIdFromLocalStorage =  localStorage.getItem('admin_id');
     if(!adminIdFromLocalStorage) {
         history.push("/login")
     }
 
-    useEffect(() => {
-        dispatch(getNewsList());
-    },[getNewsList]);
+    // useEffect(() => {
+    //     dispatch(getNewsList());
+    // },[getNewsList]);
 
     return (
         <>

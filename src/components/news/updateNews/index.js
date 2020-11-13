@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
-import { updateNews, getTypes, getCurrentNews, deleteImageFromBackend, deleteFileFromBackend } from '../../../store/actions/newsActions';
+import { 
+    updateNews, 
+    getTypes, 
+    getCurrentNews, 
+    deleteImageFromBackend, 
+    deleteFileFromBackend 
+} from '../../../store/actions/action-creators/news-action-creators';
 import NewsForm from '../newsForm';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../loader';
@@ -19,17 +25,18 @@ const UpdateNews = () => {
     const imageLoading = useSelector(state => state.news.imageLoading);
 
     const dispatch = useDispatch();
-
     let history = useHistory();
     const historyPathname = history.location.pathname;
     const splitedPathname = historyPathname.split(/([0-9]+)/);
     const currentNewsId = JSON.parse(splitedPathname[1]);
 
     useEffect(() => {
-        dispatch(getCurrentNews(currentNewsId));
         dispatch(getTypes());
-    },[currentNewsId, getTypes, getCurrentNews]);
+    },[getTypes]);
 
+    useEffect(() => {
+        dispatch(getCurrentNews(currentNewsId));
+    },[getCurrentNews, currentNewsId])
     if(loading) {
         return <Loading/>
     }

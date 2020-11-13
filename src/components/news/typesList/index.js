@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../../UI/Button';
-import { getNewsList } from '../../../store/actions/newsActions';
+import { getNewsList } from '../../../store/actions/action-creators/news-action-creators';
 import { Link } from 'react-router-dom';
 import Loading from '../../loader';
 import { useSelector, useDispatch } from 'react-redux';

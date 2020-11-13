@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAdmins } from "../../../store/actions/authActions";
+import { getAdmins } from "../../../store/actions/action-creators/auth-action-creators";
 import styled from "styled-components";
 import AdminItem from "../adminItem";
 import Loading from "../../loader";
@@ -46,7 +46,7 @@ const AdminsList = ( ) => {
     dispatch(getAdmins());
   }, [getAdmins]);
 
-  const signedAdmins = admins.find((admin) => admin.id == admin_id);
+
   const adminsList = admins
     ? admins.filter((admin) => admin.id !== admin_id)
     : [];

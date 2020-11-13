@@ -1,8 +1,8 @@
 import React, {useEffect } from 'react';
 import styled from 'styled-components';
-import { getTypes,deleteNews, getCurrentNews } from '../../../store/actions/newsActions';
-import { getAdmin } from '../../../store/actions/authActions';
-import { showModal } from '../../../store/actions/appActions';
+import { getTypes,deleteNews, getCurrentNews } from '../../../store/actions/action-creators/news-action-creators';
+import { getAdmin } from '../../../store/actions/action-creators/auth-action-creators';
+import { showModal } from '../../../store/actions/action-creators/app-action-creators';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 import  { Wrapper } from '../../../generalStyles';
@@ -98,12 +98,16 @@ const NewsDetails = () => {
     const currentNewsId = JSON.parse(splitedPathname[1]);
 
     useEffect(() => {
-        dispatch(getCurrentNews(currentNewsId));
         dispatch(getTypes());
         dispatch(getAdmin(localStorage.getItem('admin_id')))
-    },[currentNewsId, getTypes, getCurrentNews, getAdmin]);
-    const signedInAdminsNews = admin && admin.news ? admin.news.find(item => item.id == currentNews.id) : '';
+    },[ getTypes, getAdmin]);
 
+    useEffect(() => {
+        console.log('useefffect')
+        dispatch(getCurrentNews(currentNewsId));
+    },[getCurrentNews, currentNewsId])
+    const signedInAdminsNews = admin && admin.news ? admin.news.find(item => item.id == currentNews.id) : '';
+    console.log('signedInAdminsNews', signedInAdminsNews)
     return(
         <>
             <Wrapper>

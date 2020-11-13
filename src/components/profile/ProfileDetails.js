@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { getAdmin  } from '../../store/actions/authActions';
+import { getAdmin  } from '../../store/actions/action-creators/auth-action-creators';
 import  { Link } from 'react-router-dom';
 import Loading from '../loader';
 import styled from 'styled-components';

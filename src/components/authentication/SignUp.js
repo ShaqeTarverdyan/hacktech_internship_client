@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { signUp, clearMessages } from '../../store/actions/authActions';
+import { signUp, clearMessages } from '../../store/actions/action-creators/auth-action-creators';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
