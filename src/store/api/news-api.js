@@ -40,9 +40,11 @@ export const addNews = async ({news, history}) => {
             'Authorization': 'Bearer' + localStorage.getItem("token")
         },
     });
+
     if(response.status === 200) {
         history.push('/adminsNews')
     }
+    return response.data.news
 }
 
 export const updateNews = async({updatedNews, history}) => {
@@ -72,10 +74,9 @@ export const updateNews = async({updatedNews, history}) => {
         },
     });
     if(response.status === 200) {
-        getCurrentNews(id)
-        history.push('/news')
-        
+        history.push('/news')  ;
     }
+    // return response.data.news
 }
 
 export const deleteNews = async (newsId, history) => {
@@ -122,9 +123,6 @@ export const deleteImageFromBackend = async(path, newsId) => {
                 Authorization: 'Bearer' + localStorage.getItem("token")
             }
     });
-    if(response.status === 200) {
-        getCurrentNews(newsId)
-    }
 }
 
 export const deleteFileFromBackend = async(path, newsId) => {
@@ -137,7 +135,7 @@ export const deleteFileFromBackend = async(path, newsId) => {
             }
     });
     if(response.status === 200) {;
-        getCurrentNews(newsId)
+        return getCurrentNews(newsId)
     }
 }
 export const  sendDataToUserWithPdfFormat = async({fileIds, email}) => {
