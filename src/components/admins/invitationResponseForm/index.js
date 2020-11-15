@@ -4,7 +4,6 @@ import { getInvitationData, signUp } from '../../../store/actions/action-creator
 import AuthForm from '../../authentication/AuthForm';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { isAuth } from '../../../helpers/isAuth';
 
 export const InvitaionResponseFormValidation = Yup.object().shape({
     firstname: Yup.string()
@@ -23,9 +22,6 @@ export const InvitaionResponseFormValidation = Yup.object().shape({
   });
 
 const InvitaionResponseForm = () => {
-    useEffect(() => {
-        isAuth()
-    },[])
     const invitation = useSelector(state => state.auth.invitation);
     const dispatch = useDispatch();
     const history = useHistory();
