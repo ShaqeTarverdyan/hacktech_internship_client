@@ -27,7 +27,7 @@ import {
       try {
         yield put({ type: NEWS_CONSTANTS.GET_NEWS_LOADING })
         const allNews = yield call(getAllNews, typeId, page)
-        yield put({ type: NEWS_CONSTANTS.GET_NEWS_PROCESS, payload: allNews })
+        yield put({ type: NEWS_CONSTANTS.GET_NEWS_COMPLETED, payload: allNews })
       }catch(err) {
         yield put({ type: NEWS_CONSTANTS.GET_NEWS_ERROR, payload: err}) 
       }
@@ -37,7 +37,7 @@ import {
       try {
         yield put({ type: NEWS_CONSTANTS.GET_NEWS_TYPES_LOADING})
         const types = yield call(getTypes);
-        yield put({ type: NEWS_CONSTANTS.GET_NEWS_TYPES_PROCESS,payload: types})
+        yield put({ type: NEWS_CONSTANTS.GET_NEWS_TYPES_COMPLETED,payload: types})
       }catch(err) {
         yield put({ type: NEWS_CONSTANTS.GET_NEWS_TYPES_ERROR, payload: err}) 
       }
@@ -47,17 +47,19 @@ import {
     try{
       yield put({type: NEWS_CONSTANTS.GET_CURRENT_NEWS_LOADING});
       const currentNews = yield call(getCurrentNews, id);
-      yield put({ type: NEWS_CONSTANTS.GET_CURRENT_NEWS_PROCESS, payload: currentNews })
+      console.log('tesy')
+      yield put({ type: NEWS_CONSTANTS.GET_CURRENT_NEWS_COMPLETED, payload: currentNews })
     } catch(err) {
+      console.log({err})
       yield put({type: NEWS_CONSTANTS.GET_CURRENT_NEWS_ERROR, payload: err.message})
     }
   }
 
   function* delete_News({payload: {newsId, history}}) {
     try{
-      yield put({type: NEWS_CONSTANTS.GET_CURRENT_NEWS_LOADING});
+      yield put({type: NEWS_CONSTANTS.DELETE_NEWS_LOADING});
       const deletedNews = yield call(deleteNews, newsId, history);
-      yield put({ type: NEWS_CONSTANTS.DELETE_NEWS_PROCESS, payload: deletedNews })
+      yield put({ type: NEWS_CONSTANTS.DELETE_NEWS_COMPLETED, payload: deletedNews })
     }catch(err) {
 
     }
@@ -68,7 +70,7 @@ import {
       const { newsId, email } = payload;
       yield put({type: NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_LOADING});
       const attachedAdminToNews = yield call(attachAdminToNews, newsId, email)
-      yield put({type: NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_PROCESS, payload: attachedAdminToNews})
+      yield put({type: NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_COMPLETED, payload: attachedAdminToNews})
     }catch(err) {
       console.log(err.response)
       yield put({type: NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_ERROR, payload: err})
@@ -79,7 +81,7 @@ import {
     try{
       yield put({type: NEWS_CONSTANTS.GET_ATTACHED_ADMINS_LOADING});
       const attachedAdmins = yield call(getAttachedAdmins, newsId);
-      yield put({ type: NEWS_CONSTANTS.GET_ATTACHED_ADMINS_PROCESS, payload: attachedAdmins})
+      yield put({ type: NEWS_CONSTANTS.GET_ATTACHED_ADMINS_COMPLETED, payload: attachedAdmins})
     }catch(err) {
       
     }
@@ -89,7 +91,7 @@ import {
     try{
       yield put({type: NEWS_CONSTANTS.UPDATE_NEWS_LOADING});
       const updatedNews = yield call(updateNews, {...payload});
-      yield put({type: NEWS_CONSTANTS.UPDATE_NEWS_PROCESS,payload: updatedNews })
+      yield put({type: NEWS_CONSTANTS.UPDATE_NEWS_COMPLETED,payload: updatedNews })
     }catch(err) {
       yield put({type: NEWS_CONSTANTS.UPDATE_NEWS_ERROR, payload: err.response})
     }
@@ -98,8 +100,8 @@ import {
   function* delete_Image_From_Backend({payload: {path, newsId}}) {
     try {
       yield put({ type: NEWS_CONSTANTS.DELETE_IMAGE_LOADING});
-      const deletedimage = yield call(deleteImageFromBackend, path, newsId);
-      yield put({type: NEWS_CONSTANTS.DELETE_IMAGE_PROCESS,payload: deletedimage })
+      yield call(deleteImageFromBackend, path, newsId);
+      yield put({type: NEWS_CONSTANTS.DELETE_IMAGE_COMPLETED,payload: {path, newsId} })
     } catch(err) {
       yield put({type: NEWS_CONSTANTS.DELETE_IMAGE_ERROR, payload: err})
     }
@@ -107,8 +109,8 @@ import {
   function* delete_File_From_Backend({payload: {path, newsId}}) {
     try {
       yield put({ type: NEWS_CONSTANTS.DELETE_FILE_LOADING});
-      const deletedimage = yield call(deleteFileFromBackend, path, newsId);
-      yield put({type: NEWS_CONSTANTS.DELETE_FILE_PROCESS,payload: deletedimage })
+      yield call(deleteFileFromBackend, path, newsId);
+      yield put({type: NEWS_CONSTANTS.DELETE_FILE_COMPLETED,payload: {path, newsId} })
     } catch(err) {
       yield put({type: NEWS_CONSTANTS.DELETE_IMAGE_ERROR, payload: err})
     }
@@ -117,10 +119,11 @@ import {
   function* add_News({payload}) {
     try {
       yield put({ type: NEWS_CONSTANTS.ADD_NEWS_LOADING});
-      const addNewslogic = yield call(addNews, {...payload});
-      yield put({type: NEWS_CONSTANTS.ADD_NEWS_PROCESS,payload: addNewslogic })
+      const addNewsRequest = yield call(addNews, {...payload});
+      yield put({type: NEWS_CONSTANTS.ADD_NEWS_COMPLETED,payload: addNewsRequest })
     }catch(err) {
-
+      console.log({err})
+      yield put({type: NEWS_CONSTANTS.ADD_NEWS_ERROR, payload: err})
     }
   }
 
@@ -128,21 +131,21 @@ import {
     try {
       yield put({ type: NEWS_CONSTANTS.SEND_DATA_FOR_PDF_LOADING});
       const sendDataToUserWithPdfFormatRequest = yield call(sendDataToUserWithPdfFormat, {...payload});
-      yield put({type: NEWS_CONSTANTS.SEND_DATA_FOR_PDF_PROCESS,payload: sendDataToUserWithPdfFormatRequest })
+      yield put({type: NEWS_CONSTANTS.SEND_DATA_FOR_PDF_COMPLETED,payload: sendDataToUserWithPdfFormatRequest })
     }catch(err) {
 
     }
   } 
   export default function* newsSaga() {
-    yield takeEvery(NEWS_CONSTANTS.GET_NEWS_COMPLETED, get_AllNews);
-    yield takeLatest(NEWS_CONSTANTS.GET_NEWS_TYPES_COMPLETED, get_Types);
-    yield takeEvery(NEWS_CONSTANTS.GET_CURRENT_NEWS_COMPLETED,get_Current_News );
-    yield takeEvery(NEWS_CONSTANTS.DELETE_NEWS_COMPLETED, delete_News);
-    yield takeEvery(NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_COMPLETED, attach_Admin_To_News);
-    yield takeEvery(NEWS_CONSTANTS.GET_ATTACHED_ADMINS_COMPLETED, get_Attached_Admins);
-    yield takeEvery(NEWS_CONSTANTS.UPDATE_NEWS_COMPLITED, update_News);
-    yield takeEvery(NEWS_CONSTANTS.DELETE_IMAGE_COMPLITED, delete_Image_From_Backend);
-    yield takeEvery(NEWS_CONSTANTS.DELETE_FILE_COMPLITED, delete_File_From_Backend);
-    yield takeEvery(NEWS_CONSTANTS.ADD_NEWS_COMPLITED, add_News);
-    yield takeEvery(NEWS_CONSTANTS.SEND_DATA_FOR_PDF_COMPLITED, sendDataToUserWithPdfFormatSaga)
+    yield takeEvery(NEWS_CONSTANTS.GET_NEWS_PROCESS, get_AllNews);
+    yield takeLatest(NEWS_CONSTANTS.GET_NEWS_TYPES_PROCESS, get_Types);
+    yield takeEvery(NEWS_CONSTANTS.GET_CURRENT_NEWS_PROCESS,get_Current_News );
+    yield takeEvery(NEWS_CONSTANTS.DELETE_NEWS_PROCESS, delete_News);
+    yield takeEvery(NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_PROCESS, attach_Admin_To_News);
+    yield takeEvery(NEWS_CONSTANTS.GET_ATTACHED_ADMINS_PROCESS, get_Attached_Admins);
+    yield takeEvery(NEWS_CONSTANTS.UPDATE_NEWS_PROCESS, update_News);
+    yield takeEvery(NEWS_CONSTANTS.DELETE_IMAGE_PROCESS, delete_Image_From_Backend);
+    yield takeEvery(NEWS_CONSTANTS.DELETE_FILE_PROCESS, delete_File_From_Backend);
+    yield takeEvery(NEWS_CONSTANTS.ADD_NEWS_PROCESS, add_News);
+    yield takeEvery(NEWS_CONSTANTS.SEND_DATA_FOR_PDF_PROCESS, sendDataToUserWithPdfFormatSaga)
   }

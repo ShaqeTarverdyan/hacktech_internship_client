@@ -8,7 +8,7 @@ import {
 
 function* show_Modal() {
     try {
-        yield put({type: APP_CONSTANTS.SHOW_MODAL_PROCESS});
+        yield put({type: APP_CONSTANTS.SHOW_MODAL_COMPLETED});
     }catch(err) {
 
     }
@@ -16,13 +16,13 @@ function* show_Modal() {
 
 function* close_Modal() {
   try {
-      yield put({type: APP_CONSTANTS.CLOSE_MODAL_PROCESS});
+      yield put({type: APP_CONSTANTS.CLOSE_MODAL_COMPLETED});
   }catch(err) {
 
   }
 }
 
 export default function* appSaga() {
-  yield takeEvery(APP_CONSTANTS.SHOW_MODAL_COMPLITED, show_Modal);
-  yield takeEvery(APP_CONSTANTS.CLOSE_MODAL_COMPLITED,close_Modal)
+  yield takeEvery(APP_CONSTANTS.SHOW_MODAL_PROCESS, show_Modal);
+  yield takeEvery(APP_CONSTANTS.CLOSE_MODAL_PROCESS,close_Modal)
 }
