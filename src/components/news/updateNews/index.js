@@ -23,7 +23,6 @@ const UpdateNews = () => {
     const currentNews = useSelector(state => state.news.currentNews);
     const admin_id = useSelector(state => state.auth.admin_id);
     const imageLoading = useSelector(state => state.news.imageLoading);
-
     const dispatch = useDispatch();
     let history = useHistory();
     const historyPathname = history.location.pathname;
@@ -31,12 +30,12 @@ const UpdateNews = () => {
     const currentNewsId = JSON.parse(splitedPathname[1]);
 
     useEffect(() => {
-        dispatch(getTypes());
-    },[getTypes]);
+        dispatch(getCurrentNews(currentNewsId));
+    },[getCurrentNews, currentNewsId]);
 
     useEffect(() => {
-        dispatch(getCurrentNews(currentNewsId));
-    },[getCurrentNews, currentNewsId])
+        currentNews && dispatch(getTypes());
+    },[getTypes]);
     if(loading) {
         return <Loading/>
     }
