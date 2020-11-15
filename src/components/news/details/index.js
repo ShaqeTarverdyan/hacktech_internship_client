@@ -135,7 +135,7 @@ const NewsDetails = () => {
                                 currentNews.admins && 
                                 currentNews.admins.length ? 
                                 currentNews.admins.map(admin => (
-                                    <AdminDetail>
+                                    <AdminDetail key={admin.id}>
                                         <P>First Name: {admin.firstname}</P>
                                         <P>Last Name: {admin.lastname}</P>
                                         <P>Role: {admin.admin_News.role}</P>
