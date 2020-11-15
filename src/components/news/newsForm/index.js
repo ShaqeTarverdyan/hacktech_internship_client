@@ -153,17 +153,17 @@ const NewsForm = ({
                                         </>:
                                         values.files && 
                                         values.files.length > 0 ?
-                                        values.files.map(file => (
+                                        values.files.map((file, index) => (
                                             file.type && file.type.startsWith("image") ? 
                                             <FileReader 
-                                                key={file.id}
+                                                key={index}
                                                 deleteFile={() => {
                                                     setFieldValue("files", values.files.filter(item => item.lastModified !== file.lastModified));
                                                 }}
                                                 file={file}
                                             /> : 
                                             <FileReader 
-                                                key={file.id}
+                                                key={index}
                                                 deleteFile={() => {
                                                     setFieldValue("files", values.files.filter(item => item.lastModified !== file.lastModified));
                                                 }}
