@@ -23,7 +23,7 @@ export default (state = initialState, {type, payload}) => {
                 loading: true
             }
         }
-        case NEWS_CONSTANTS.GET_NEWS_PROCESS: {
+        case NEWS_CONSTANTS.GET_NEWS_COMPLETED: {
             return {
                 ...newState,
                 loading: false,
@@ -52,7 +52,8 @@ export default (state = initialState, {type, payload}) => {
             }
         }
 
-        case NEWS_CONSTANTS.GET_CURRENT_NEWS_PROCESS: {
+        case NEWS_CONSTANTS.GET_CURRENT_NEWS_COMPLETED: {
+            console.log({payload})
             return {
                 ...newState,
                 loading: false,
@@ -68,20 +69,21 @@ export default (state = initialState, {type, payload}) => {
             }
         }
         case NEWS_CONSTANTS.ADD_NEWS_ERROR: {
-            const messages = payload.data.errors.map(({param, msg}) => {
-                return {[param]: msg} 
-             })
+            // const messages = payload.data.errors.map(({param, msg}) => {
+            //     return {[param]: msg} 
+            //  })
+            console.log({payload})
              return {
                  ...newState, 
                  loading: false, 
-                 error: payload.data.message, 
-                 errormessages: [...messages]
+                 // error: payload.data.message, 
+                 // errormessages: [...messages]
              }
         }
         case NEWS_CONSTANTS.UPDATE_NEWS_LOADING: {
             return {...newState, loading: true}
         }
-        case NEWS_CONSTANTS.UPDATE_NEWS_PROCESS : {
+        case NEWS_CONSTANTS.UPDATE_NEWS_COMPLETED : {
             return {
                 ...newState,
                 loading: false,
@@ -115,7 +117,7 @@ export default (state = initialState, {type, payload}) => {
         }
 
 
-        case NEWS_CONSTANTS.ADD_NEWS_PROCESS: {
+        case NEWS_CONSTANTS.ADD_NEWS_COMPLETED: {
             return {
                 ...newState,
                 loading: false,
@@ -124,7 +126,7 @@ export default (state = initialState, {type, payload}) => {
             }
         }
 
-        case NEWS_CONSTANTS.DELETE_NEWS_PROCESS: {
+        case NEWS_CONSTANTS.DELETE_NEWS_COMPLETED: {
             const remainedNews = newState.newsList.filter(news => news.id !== payload);
             return {
                 ...newState,
@@ -142,7 +144,7 @@ export default (state = initialState, {type, payload}) => {
             }
         }
 
-        case NEWS_CONSTANTS.GET_NEWS_TYPES_PROCESS: {
+        case NEWS_CONSTANTS.GET_NEWS_TYPES_COMPLETED: {
             return {
                 ...newState,
                 loading: false,
@@ -187,7 +189,7 @@ export default (state = initialState, {type, payload}) => {
                 loading: true
             }
         }
-        case NEWS_CONSTANTS.GET_ATTACHED_ADMINS_PROCESS: {
+        case NEWS_CONSTANTS.GET_ATTACHED_ADMINS_COMPLETED: {
             return {
                 ...newState,
                 loading: false,
@@ -208,7 +210,7 @@ export default (state = initialState, {type, payload}) => {
                 loading: true
             }
         }
-        case NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_PROCESS: {
+        case NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_COMPLETED: {
             return {
                 ...newState,
                 loading: false,
@@ -229,7 +231,7 @@ export default (state = initialState, {type, payload}) => {
                 loading: true
             }
         }
-        case NEWS_CONSTANTS.SEND_DATA_FOR_PDF_PROCESS: {
+        case NEWS_CONSTANTS.SEND_DATA_FOR_PDF_COMPLETED: {
             return {
                 ...newState,
                 loading: false,
@@ -250,10 +252,15 @@ export default (state = initialState, {type, payload}) => {
                 imageLoading: true
             }
         }
-        case NEWS_CONSTANTS.DELETE_IMAGE_PROCESS: {
+        case NEWS_CONSTANTS.DELETE_IMAGE_COMPLETED: {
+            const updatedImages = newState.currentNews.news_images.filter(news => news.path !== payload.path)
             return {
                 ...newState,
-                imageLoading: false
+                imageLoading: false,
+                currentNews: {
+                    ...newState.currentNews, 
+                    news_images: updatedImages
+                }
             }
         }
         case NEWS_CONSTANTS.DELETE_IMAGE_ERROR: {
@@ -269,10 +276,15 @@ export default (state = initialState, {type, payload}) => {
                 imageLoading: true
             }
         }
-        case NEWS_CONSTANTS.DELETE_FILE_PROCESS: {
+        case NEWS_CONSTANTS.DELETE_FILE_COMPLETED: {
+            const updatedFiles = newState.currentNews.news_files.filter(news => news.path !== payload.path)
             return {
                 ...newState,
-                imageLoading: false
+                imageLoading: false,
+                currentNews: {
+                    ...newState.currentNews, 
+                    news_files: updatedFiles
+                }
             }
         }
         case NEWS_CONSTANTS.DELETE_FILE_ERROR: {

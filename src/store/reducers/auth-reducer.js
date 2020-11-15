@@ -22,8 +22,12 @@ export default (state = initialState, {type, payload}) => {
         case AUTH_CONSTANTS.ADMIN_LOGIN_LOADING: {
             return { ...newState, loading: true}
         }
-        case AUTH_CONSTANTS.ADMIN_LOGIN_PROCESS: {
-            return {...newState, loading: false, error: null, admin_id: payload}
+        case AUTH_CONSTANTS.ADMIN_LOGIN_COMPLETED: {
+            return {
+                ...newState, 
+                loading: false, 
+                error: null, 
+                admin_id: payload}
         }
         case AUTH_CONSTANTS.ADMIN_LOGIN_ERROR: {
             const messages = payload.data.errors.map(({param, msg}) => {
@@ -39,7 +43,7 @@ export default (state = initialState, {type, payload}) => {
         case AUTH_CONSTANTS.SIGNUP_LOADING: {
             return { ...newState, loading: true}
         }
-        case AUTH_CONSTANTS.SIGNUP_PROCESS: {
+        case AUTH_CONSTANTS.SIGNUP_COMPLETED: {
             return { ...newState, loading: false, error: null}
         }
         case AUTH_CONSTANTS.SIGNUP_ERROR: {
@@ -53,7 +57,7 @@ export default (state = initialState, {type, payload}) => {
                 errormessages: [...messages]
             }
         }
-        case AUTH_CONSTANTS.SET_ADMIN_ID_IN_STORE_PROCESS: {
+        case AUTH_CONSTANTS.SET_ADMIN_ID_IN_STORE_COMPLETED: {
             return {...newState, admin_id: payload}
         }
         case AUTH_CONSTANTS.DELETE_TOKEN_FROM_STORE: {
@@ -62,7 +66,7 @@ export default (state = initialState, {type, payload}) => {
         case AUTH_CONSTANTS.GET_ADMIN_LOADING: {
             return {...newState, loading: true}
         }
-        case AUTH_CONSTANTS.GET_ADMIN_PROCESS: {
+        case AUTH_CONSTANTS.GET_ADMIN_COMPLETED: {
             return {
                 ...newState, 
                 loading: false, 
@@ -76,7 +80,7 @@ export default (state = initialState, {type, payload}) => {
         case AUTH_CONSTANTS.GET_ADMINS_LOADING: {
             return { ...newState, loading: true}
         }
-        case AUTH_CONSTANTS.GET_ADMINS_PROCESS: {
+        case AUTH_CONSTANTS.GET_ADMINS_COMPLETED: {
             const admins = payload;
             return {
                 ...newState,
@@ -93,7 +97,7 @@ export default (state = initialState, {type, payload}) => {
             return { ...newState, loading: true, error: null}
         }
 
-        case AUTH_CONSTANTS.UPDATE_ADMIN_PROCESS: {
+        case AUTH_CONSTANTS.UPDATE_ADMIN_COMPLETED: {
             const updatedAdmin = {...payload};
             const updatedAdmins = newState.admins.map(admin => {
                 if(admin.id === updatedAdmin.id) {
@@ -121,7 +125,7 @@ export default (state = initialState, {type, payload}) => {
              }
         }
 
-        case AUTH_CONSTANTS.LOGOUT_PROCESS : {
+        case AUTH_CONSTANTS.LOGOUT_COMPLETED : {
                 return { ...newState, admin_id: ''}
         }
         case AUTH_CONSTANTS.GET_ATTACHED_NEWS_LOADING: {
@@ -130,7 +134,7 @@ export default (state = initialState, {type, payload}) => {
                 loading: true
             }
         }
-        case AUTH_CONSTANTS.GET_ATTACHED_NEWS_PROCESS: {
+        case AUTH_CONSTANTS.GET_ATTACHED_NEWS_COMPLETED: {
             return {
                 ...newState,
                 loading: false,
@@ -148,7 +152,7 @@ export default (state = initialState, {type, payload}) => {
         case AUTH_CONSTANTS.DELETE_ADMIN_LOADING: {
             return { ...newState, loading: true, error: null}
         }
-        case AUTH_CONSTANTS.DELETE_ADMIN_PROCESS: {
+        case AUTH_CONSTANTS.DELETE_ADMIN_COMPLETED: {
             const remainedAdmins = newState.admins.filter(admin => admin.id !== payload);
             return {
                 ...newState,
@@ -163,7 +167,7 @@ export default (state = initialState, {type, payload}) => {
         case AUTH_CONSTANTS.GET_INVITATION_DATA_LOADING: {
             return { ...newState, loading: true, error: null}
         }
-        case AUTH_CONSTANTS.GET_INVITATION_DATA_PROCESS: {
+        case AUTH_CONSTANTS.GET_INVITATION_DATA_COMPLETED: {
             return {
                 ...newState,
                 loading: false,
@@ -178,7 +182,7 @@ export default (state = initialState, {type, payload}) => {
         case AUTH_CONSTANTS.SEND_INVITATION_LOADING: {
             return { ...newState, loading: true, error: null}
         }
-        case AUTH_CONSTANTS.SEND_INVITATION_PROCESS: {
+        case AUTH_CONSTANTS.SEND_INVITATION_COMPLETED: {
             return {
                 ...newState,
                 loading: false,
@@ -199,14 +203,14 @@ export default (state = initialState, {type, payload}) => {
                 loading: true
             }
         }
-        case AUTH_CONSTANTS.GET_MYNEWS_SUCCESS: {
-            return {
-                ...newState,
-                loading: false,
-                error: null, 
-                admin: {...newState.admin, ...payload}
-            }
-        }
+        // case AUTH_CONSTANTS.GET_MYNEWS_SUCCESS: {
+        //     return {
+        //         ...newState,
+        //         loading: false,
+        //         error: null, 
+        //         admin: {...newState.admin, ...payload}
+        //     }
+        // }
         case AUTH_CONSTANTS.GET_MYNEWS_ERROR: {
             return { 
                 ...newState,
