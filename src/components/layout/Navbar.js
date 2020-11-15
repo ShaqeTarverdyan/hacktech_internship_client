@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 
-import { setAdminIdinStore } from '../../store/actions/action-creators/auth-action-creators';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Nav = styled.nav`
@@ -21,15 +20,11 @@ const Container = styled.div`
 const Navbar = () => {
     const admin_id = useSelector(state => state.auth.admin_id);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(setAdminIdinStore());
-    }, [setAdminIdinStore, admin_id])
     return(
         <Nav>
             <Container>
                 {
-                    admin_id ? <SignedInLinks/> : <SignedOutLinks/>
+                    localStorage.getItem('admin_id') ? <SignedInLinks/> : <SignedOutLinks/>
                 }
             </Container>
         </Nav>
