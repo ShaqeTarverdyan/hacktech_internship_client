@@ -27,8 +27,11 @@ export const logIn = async(admin,history) => {
     const admin_id = loggedAdmin.data.admin_id;
     localStorage.setItem("token", token);
     localStorage.setItem("admin_id", admin_id);
-    setAdminIdinStore()
-    history.push('/news')
+
+    if(loggedAdmin.status === 200) {
+        history.push('/news')
+    }
+    return loggedAdmin.data
 }
 
 export const logOut = () => {     
@@ -115,11 +118,6 @@ export const deleteAdmin = async({admin_id}) => {
         }
     }
 };
-export const setAdminIdinStore = () => {
-    const getlogedinAdminId = localStorage.getItem('admin_id');
-    return getlogedinAdminId
-
-}
 
 export const sendInvitation = async(values) => {
     const { email, role } = values;
