@@ -56,3 +56,7 @@ export const sendInvitation = (values) => {
 export const getInvitationData = (token) => {
     return { type: AUTH_CONSTANTS.GET_INVITATION_DATA_PROCESS, payload: {token}}
 }
+
+export const getLoggedAdmin = () => {
+    return { type: AUTH_CONSTANTS.GET_LOGGED_ADMIN_PROCESS}
+}

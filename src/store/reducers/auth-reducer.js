@@ -27,7 +27,8 @@ export default (state = initialState, {type, payload}) => {
                 ...newState, 
                 loading: false, 
                 error: null, 
-                admin_id: payload}
+                admin: {...payload}
+            }
         }
         case AUTH_CONSTANTS.ADMIN_LOGIN_ERROR: {
             const messages = payload.data.errors.map(({param, msg}) => {
@@ -197,20 +198,6 @@ export default (state = initialState, {type, payload}) => {
                 error: payload
             }
         }
-        case AUTH_CONSTANTS.GET_MYNEWS_START: {
-            return {
-                ...newState,
-                loading: true
-            }
-        }
-        // case AUTH_CONSTANTS.GET_MYNEWS_SUCCESS: {
-        //     return {
-        //         ...newState,
-        //         loading: false,
-        //         error: null, 
-        //         admin: {...newState.admin, ...payload}
-        //     }
-        // }
         case AUTH_CONSTANTS.GET_MYNEWS_ERROR: {
             return { 
                 ...newState,
@@ -223,6 +210,26 @@ export default (state = initialState, {type, payload}) => {
             return {
                 ...newState,
                 errormessages: []
+            }
+        }
+        case AUTH_CONSTANTS.GET_LOGGED_ADMIN_LOADING: {
+            return {
+                ...newState,
+                loading: true,
+            }
+        }
+        case AUTH_CONSTANTS.GET_LOGGED_ADMIN_COMPLITED: {
+            return {
+                ...newState,
+                loading: false,
+                admin: {...payload}
+            }
+        }
+        case AUTH_CONSTANTS.GET_LOGGED_ADMIN_ERROR: {
+            return {
+                ...newState,
+                loading: false,
+                error: {...payload}
             }
         }
         default: {

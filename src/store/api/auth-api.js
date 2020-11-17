@@ -19,19 +19,30 @@ export const signUp = async(newAdmin, history, isInvitaion) => {
 
 export const logIn = async(admin,history) => {
     const { email, password } = admin;
-    const loggedAdmin = await Axios.post("/login", {
+    const result = await Axios.post("/login", {
         email: email,
         password: password,
     });
-    const token = JSON.stringify(loggedAdmin.data.token);
-    const admin_id = loggedAdmin.data.admin_id;
+    const token = JSON.stringify(result.data.token);
     localStorage.setItem("token", token);
-    localStorage.setItem("admin_id", admin_id);
-
-    if(loggedAdmin.status === 200) {
+    if(result.status === 200) {
         history.push('/news')
     }
-    return loggedAdmin.data
+
+}
+
+export const getLoggedAdmin = async() => {
+    const loggedAdmin = localStorage.getItem("token")
+    if(!loggedAdmin) {
+        return
+    }
+    const result = await Axios.get(`/getLoggedAdmin`,{
+        params: {loggedAdmin: loggedAdmin || ''},
+        headers: {
+            Authorization: 'Bearer' + localStorage.getItem("token")
+        }
+    });
+    return result.data.admin
 }
 
 export const logOut = () => {     
@@ -54,6 +65,7 @@ export const getAdmins = async(role) => {
 }
 
 export const getAdmin = async(admin_id) => {
+    console.log({admin_id})
     const result = await Axios.get(`/admin/${admin_id}`,{
         headers: {
             Authorization: 'Bearer' + localStorage.getItem("token")
@@ -101,7 +113,6 @@ export const togglePanelAdminStatus = async({id, value}) => {
 }
 
 export const deleteAdmin = async({admin_id}) => {
-    console.log("admin_id", admin_id)
     const result = await Axios
         .delete(`/admin/${admin_id}`, {
             admin_id: admin_id,

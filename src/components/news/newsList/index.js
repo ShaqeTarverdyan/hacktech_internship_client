@@ -36,6 +36,7 @@ const NewsList = ({
     const loading = useSelector(state => state.news.loading);
     const totalPages = useSelector(state => state.news.totalPages);
     const isShownModal = useSelector(state => state.app.isShownModal);
+    const admin = useSelector(state => state.auth.admin);
 
     const dispatch = useDispatch();
     const [linkedNewsIds, setLinkedNewsIds] = useState([]);
@@ -56,8 +57,7 @@ const NewsList = ({
 
     let params = (new URL(window.location.href)).searchParams;
 
-    const adminIdFromLocalStorage =  localStorage.getItem('admin_id');
-    if(!adminIdFromLocalStorage) {
+    if(!admin) {
         history.push("/login")
     }
 

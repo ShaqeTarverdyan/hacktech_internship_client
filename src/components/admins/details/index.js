@@ -28,8 +28,6 @@ const Details = () => {
     const splitedPathname = historyPathname.split(/([0-9]+)/);
     const currentAdminId = JSON.parse(splitedPathname[1]);
 
-    const admins = useSelector(state =>  state.auth.admins);
-    const admin_id = useSelector(state =>  state.auth.admin_id);
     useEffect(() => {
         dispatch(getAdmin(currentAdminId));
     }, [getAdmin, currentAdminId]);

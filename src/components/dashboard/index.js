@@ -18,16 +18,11 @@ const Dashboard = () => {
         isAuth()
     },[])
     const newsList = useSelector(state => state.news.newsList);
+    const admin = useSelector(state => state.auth.admin)
     let history = useHistory();
-    const adminIdFromLocalStorage =  localStorage.getItem('admin_id');
-    if(!adminIdFromLocalStorage) {
+    if(!admin) {
         history.push("/login")
     }
-
-    // useEffect(() => {
-    //     dispatch(getNewsList());
-    // },[getNewsList]);
-
     return (
         <>
             <h1 style={{textAlign: 'center',margin: "5%"}}>All News</h1>

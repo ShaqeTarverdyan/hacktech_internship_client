@@ -96,18 +96,17 @@ const NewsDetails = () => {
     const historyPathname = history.location.pathname;
     const splitedPathname = historyPathname.split(/([0-9]+)/);
     const currentNewsId = JSON.parse(splitedPathname[1]);
-
+    const adminId = useSelector(state => state.auth.admin.id)
     useEffect(() => {
         dispatch(getTypes());
-        dispatch(getAdmin(localStorage.getItem('admin_id')))
-    },[ getTypes, getAdmin]);
+        dispatch(getAdmin(adminId))
+    },[ getTypes, getAdmin, adminId]);
 
     useEffect(() => {
-        console.log('useefffect')
         dispatch(getCurrentNews(currentNewsId));
     },[getCurrentNews, currentNewsId])
     const signedInAdminsNews = admin && admin.news ? admin.news.find(item => item.id == currentNews.id) : '';
-    console.log('signedInAdminsNews', signedInAdminsNews)
+
     return(
         <>
             <Wrapper>

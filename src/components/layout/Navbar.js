@@ -5,6 +5,7 @@ import SignedOutLinks from './SignedOutLinks';
 import SignedInLinks from './SignedInLinks';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { getLoggedAdmin } from '../../store/actions/action-creators/auth-action-creators';
 
 const Nav = styled.nav`
     width: 100%;
@@ -18,13 +19,17 @@ const Container = styled.div`
 `;
 
 const Navbar = () => {
-    const admin_id = useSelector(state => state.auth.admin_id);
     const dispatch = useDispatch();
+    const token = localStorage.getItem("token");
+    const loggedAdmin = useSelector(state => state.auth.admin)
+    useEffect(() => {
+        token && dispatch(getLoggedAdmin(token))
+    },[getLoggedAdmin, token])
     return(
         <Nav>
             <Container>
                 {
-                    localStorage.getItem('admin_id') ? <SignedInLinks/> : <SignedOutLinks/>
+                    loggedAdmin.id ? <SignedInLinks/> : <SignedOutLinks/>
                 }
             </Container>
         </Nav>

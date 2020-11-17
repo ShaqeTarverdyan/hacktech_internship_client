@@ -17,7 +17,8 @@ import {
     togglePanelAdminStatus,
     deleteAdmin,
     sendInvitation,
-    getInvitationData
+    getInvitationData,
+    getLoggedAdmin
   } from '../api/auth-api';
 
 function* getAdminsSaga({payload}) {
@@ -31,7 +32,6 @@ function* getAdminsSaga({payload}) {
 }
 
 function* clearmessagesSaga() {
-  console.log('shaqe')
   yield put({type: AUTH_CONSTANTS.CLEAR_MESSAGES_COMPLETED})
 }
 
@@ -141,6 +141,16 @@ function* getAttachedNewsSaga() {
         yield put({type: AUTH_CONSTANTS.GET_INVITATION_DATA_ERROR, payload: err})
     }
   }
+
+  function* getLoggedAdminSaga() {
+    try {
+      yield put({type: AUTH_CONSTANTS.GET_LOGGED_ADMIN_LOADING});
+      const getLoggedAdminRequest = yield call(getLoggedAdmin);
+      yield put({type: AUTH_CONSTANTS.GET_LOGGED_ADMIN_COMPLITED, payload: getLoggedAdminRequest})
+    }catch(err) {
+      yield put({type: AUTH_CONSTANTS.GET_LOGGED_ADMIN_ERROR, payload: err})
+    }
+  }
 export default function* authSaga() {
     yield takeEvery(AUTH_CONSTANTS.GET_ADMINS_PROCESS, getAdminsSaga);
     yield takeEvery(AUTH_CONSTANTS.CLEAR_MESSAGES_PROCESS, clearmessagesSaga);
@@ -155,4 +165,5 @@ export default function* authSaga() {
     yield takeEvery(AUTH_CONSTANTS.DELETE_ADMIN_PROCESS, deleteAdminSaga);
     yield takeEvery(AUTH_CONSTANTS.SEND_INVITATION_PROCESS,sendInvitationSaga );
     yield takeEvery(AUTH_CONSTANTS.GET_INVITATION_DATA_PROCESS, getInvitationDataSaga);
+    yield takeEvery(AUTH_CONSTANTS.GET_LOGGED_ADMIN_PROCESS,getLoggedAdminSaga);
   }

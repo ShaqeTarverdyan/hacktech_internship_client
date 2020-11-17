@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import AuthForm from '../authentication/AuthForm';
-import { updateAdminDetails, getAdmin, clearMessages  } from '../../store/actions/action-creators/auth-action-creators';
+import { updateAdminDetails, clearMessages  } from '../../store/actions/action-creators/auth-action-creators';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import { isAuth } from '../../helpers/isAuth';
@@ -22,11 +22,7 @@ const EditProfile = () => {
       isAuth()
     },[])
     const admin = useSelector(state => state.auth.admin);
-
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAdmin(localStorage.getItem('admin_id')));
-    }, [getAdmin]);
 
     useEffect(() => {
         dispatch(clearMessages())
