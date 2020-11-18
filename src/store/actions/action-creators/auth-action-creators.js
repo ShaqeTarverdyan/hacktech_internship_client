@@ -38,11 +38,11 @@ export const updateAdminDetails = (admin, history) => {
 }
 
 export const toggleConfirmation = (id, value) => {
-    return { type: AUTH_CONSTANTS.ADMIN_CONFIRMATION_PROCESS, payload: {id, value}}
+    return { type: AUTH_CONSTANTS.CONFIRM_ADMIN_PROCESS, payload: {id, value}}
 }
 
 export const togglePanelAdminStatus = (id, value) => {
-    return { type: AUTH_CONSTANTS.ADMIN_STATUS_PROCESS, payload: {id, value}}
+    return { type: AUTH_CONSTANTS.TOGGLE_ADMIN_STATUS_PROCESS, payload: {id, value}}
 }
 
 export const deleteAdmin = (admin_id) => {
