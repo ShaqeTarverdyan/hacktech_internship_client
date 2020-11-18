@@ -5,6 +5,7 @@ const initialState = {
     eror: null,
     admins: [],
     admin: {},
+    loggedAdmin: {},
     admin_id: '',
     invitation: {
         firstname: '',
@@ -27,7 +28,7 @@ export default (state = initialState, {type, payload}) => {
                 ...newState, 
                 loading: false, 
                 error: null, 
-                admin: {...payload}
+                loggedAdmin: {...payload}
             }
         }
         case AUTH_CONSTANTS.ADMIN_LOGIN_ERROR: {
@@ -110,7 +111,7 @@ export default (state = initialState, {type, payload}) => {
                  ...newState, 
                  loading: false, 
                  error: null, 
-                 admin: {...payload},
+                 loggedAdmin: {...payload},
                  admins: [...updatedAdmins]
                 }
         }
@@ -124,6 +125,64 @@ export default (state = initialState, {type, payload}) => {
                  error: payload.data.message, 
                  errormessages: [...messages]
              }
+        }
+        case AUTH_CONSTANTS.CONFIRM_ADMIN_LOADING: {
+            return {
+                ...newState,
+                loading: true
+            }
+        }
+        case AUTH_CONSTANTS.CONFIRM_ADMIN_COMPLETED: {
+            const updatedAdmin = {...payload};
+            const updatedAdmins = newState.admins.map(admin => {
+                if(admin.id === updatedAdmin.id) {
+                    return updatedAdmin
+                }
+                return admin
+            });
+            return {
+                 ...newState, 
+                 loading: false, 
+                 error: null, 
+                 admin: {...payload},
+                 admins: [...updatedAdmins]
+            }
+        }
+        case AUTH_CONSTANTS.CONFIRM_ADMIN_ERROR: {
+            return {
+                ...newState,
+                loading: false,
+                error: {...payload}
+            }
+        }
+        case AUTH_CONSTANTS.TOGGLE_ADMIN_STATUS_LOADING: {
+            return {
+                ...newState,
+                loading: true
+            }
+        }
+        case AUTH_CONSTANTS.TOGGLE_ADMIN_STATUS_COMPLETED: {
+            const updatedAdmin = {...payload};
+            const updatedAdmins = newState.admins.map(admin => {
+                if(admin.id === updatedAdmin.id) {
+                    return updatedAdmin
+                }
+                return admin
+            });
+            return {
+                 ...newState, 
+                 loading: false, 
+                 error: null, 
+                 admin: {...payload},
+                 admins: [...updatedAdmins]
+            }
+        }
+        case AUTH_CONSTANTS.TOGGLE_ADMIN_STATUS_ERROR: {
+            return {
+                ...newState,
+                loading: false,
+                error: {...payload}
+            }
         }
 
         case AUTH_CONSTANTS.LOGOUT_COMPLETED : {
@@ -140,7 +199,7 @@ export default (state = initialState, {type, payload}) => {
                 ...newState,
                 loading: false,
                 error: null, 
-                admin: {...newState.admin, ...payload}
+                loggedAdmin: {...newState.loggedAdmin, ...payload}
             }
         }
         case AUTH_CONSTANTS.GET_ATTACHED_NEWS_ERROR: {
@@ -206,7 +265,7 @@ export default (state = initialState, {type, payload}) => {
             }
         } 
 
-        case AUTH_CONSTANTS.CLEAR_MESSAGES: {
+        case AUTH_CONSTANTS.CLEAR_MESSAGES_COMPLETED: {
             return {
                 ...newState,
                 errormessages: []
@@ -222,7 +281,7 @@ export default (state = initialState, {type, payload}) => {
             return {
                 ...newState,
                 loading: false,
-                admin: {...payload}
+                loggedAdmin: {...payload}
             }
         }
         case AUTH_CONSTANTS.GET_LOGGED_ADMIN_ERROR: {
