@@ -7,7 +7,6 @@ import {
 
   import { NEWS_CONSTANTS } from '../actions/costants/news-constant';
 
-  //import all functions
   import {
     getAllNews,
     getTypes,
@@ -22,82 +21,82 @@ import {
     getAttachedAdmins
   } from '../api/news-api';
 
-    //asnc
-  function* get_AllNews({payload: {typeId, page}}) {
+  function* getAllNewsSaga({payload: {typeId, page}}) {
       try {
         yield put({ type: NEWS_CONSTANTS.GET_NEWS_LOADING })
-        const allNews = yield call(getAllNews, typeId, page)
-        yield put({ type: NEWS_CONSTANTS.GET_NEWS_COMPLETED, payload: allNews })
+        const allNewsRequest = yield call(getAllNews, typeId, page)
+        yield put({ type: NEWS_CONSTANTS.GET_NEWS_COMPLETED, payload: allNewsRequest })
       }catch(err) {
         yield put({ type: NEWS_CONSTANTS.GET_NEWS_ERROR, payload: err}) 
       }
   }
 
-  function* get_Types() {
+  function* getTypesSaga() {
       try {
         yield put({ type: NEWS_CONSTANTS.GET_NEWS_TYPES_LOADING})
-        const types = yield call(getTypes);
-        yield put({ type: NEWS_CONSTANTS.GET_NEWS_TYPES_COMPLETED,payload: types})
+        const getTypesRequest = yield call(getTypes);
+        yield put({ type: NEWS_CONSTANTS.GET_NEWS_TYPES_COMPLETED,payload: getTypesRequest})
       }catch(err) {
         yield put({ type: NEWS_CONSTANTS.GET_NEWS_TYPES_ERROR, payload: err}) 
       }
   }
 
-  function* get_Current_News({payload: {id}}) {
+  function* getCurrentNewsSaga({payload: {id}}) {
     try{
       yield put({type: NEWS_CONSTANTS.GET_CURRENT_NEWS_LOADING});
-      const currentNews = yield call(getCurrentNews, id);
-      console.log('tesy')
-      yield put({ type: NEWS_CONSTANTS.GET_CURRENT_NEWS_COMPLETED, payload: currentNews })
+      const getCurrentNewsRequest = yield call(getCurrentNews, id);
+      yield put({ type: NEWS_CONSTANTS.GET_CURRENT_NEWS_COMPLETED, payload: getCurrentNewsRequest })
     } catch(err) {
       console.log({err})
       yield put({type: NEWS_CONSTANTS.GET_CURRENT_NEWS_ERROR, payload: err.message})
     }
   }
 
-  function* delete_News({payload: {newsId, history}}) {
+  function* deleteNewsSaga({payload: {newsId, history}}) {
     try{
       yield put({type: NEWS_CONSTANTS.DELETE_NEWS_LOADING});
-      const deletedNews = yield call(deleteNews, newsId, history);
-      yield put({ type: NEWS_CONSTANTS.DELETE_NEWS_COMPLETED, payload: deletedNews })
+      const deletedNewsRequest = yield call(deleteNews, newsId, history);
+      yield put({ type: NEWS_CONSTANTS.DELETE_NEWS_COMPLETED, payload: deletedNewsRequest })
     }catch(err) {
 
     }
   }
 
-  function* attach_Admin_To_News({payload}) {
+  function* attachAdminToNewsSaga({payload}) {
     try{
       const { newsId, email } = payload;
       yield put({type: NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_LOADING});
-      const attachedAdminToNews = yield call(attachAdminToNews, newsId, email)
-      yield put({type: NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_COMPLETED, payload: attachedAdminToNews})
+      const attachedAdminToNewsRequest = yield call(attachAdminToNews, newsId, email)
+      const getCurrentNewsRequest = yield call(getCurrentNews, newsId)
+      yield put({type: NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_COMPLETED, payload: attachedAdminToNewsRequest});
+      yield put({type: NEWS_CONSTANTS.GET_CURRENT_NEWS_COMPLETED, payload: getCurrentNewsRequest })
     }catch(err) {
       console.log(err.response)
       yield put({type: NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_ERROR, payload: err})
     }
   }
 
-  function* get_Attached_Admins({payload: newsId}) {
+  function* getAttachedAdminsSaga({payload: newsId}) {
     try{
       yield put({type: NEWS_CONSTANTS.GET_ATTACHED_ADMINS_LOADING});
-      const attachedAdmins = yield call(getAttachedAdmins, newsId);
-      yield put({ type: NEWS_CONSTANTS.GET_ATTACHED_ADMINS_COMPLETED, payload: attachedAdmins})
+      const attachedAdminsRequest = yield call(getAttachedAdmins, newsId);
+      yield put({ type: NEWS_CONSTANTS.GET_ATTACHED_ADMINS_COMPLETED, payload: attachedAdminsRequest})
     }catch(err) {
       
     }
   }
 
-  function* update_News({payload}) {
+  function* updateNewsSaga({payload}) {
     try{
       yield put({type: NEWS_CONSTANTS.UPDATE_NEWS_LOADING});
-      const updatedNews = yield call(updateNews, {...payload});
-      yield put({type: NEWS_CONSTANTS.UPDATE_NEWS_COMPLETED,payload: updatedNews })
+      const updatedNewsRequest = yield call(updateNews, {...payload});
+      yield put({type: NEWS_CONSTANTS.UPDATE_NEWS_COMPLETED,payload: updatedNewsRequest })
     }catch(err) {
       yield put({type: NEWS_CONSTANTS.UPDATE_NEWS_ERROR, payload: err.response})
     }
   }
 
-  function* delete_Image_From_Backend({payload: {path, newsId}}) {
+  function* deleteImageFromBackendSaga({payload: {path, newsId}}) {
     try {
       yield put({ type: NEWS_CONSTANTS.DELETE_IMAGE_LOADING});
       yield call(deleteImageFromBackend, path, newsId);
@@ -106,7 +105,7 @@ import {
       yield put({type: NEWS_CONSTANTS.DELETE_IMAGE_ERROR, payload: err})
     }
   }
-  function* delete_File_From_Backend({payload: {path, newsId}}) {
+  function* deleteFileFromBackendSaga({payload: {path, newsId}}) {
     try {
       yield put({ type: NEWS_CONSTANTS.DELETE_FILE_LOADING});
       yield call(deleteFileFromBackend, path, newsId);
@@ -116,7 +115,7 @@ import {
     }
   }
 
-  function* add_News({payload}) {
+  function* addNewsSaga({payload}) {
     try {
       yield put({ type: NEWS_CONSTANTS.ADD_NEWS_LOADING});
       const addNewsRequest = yield call(addNews, {...payload});
@@ -137,15 +136,15 @@ import {
     }
   } 
   export default function* newsSaga() {
-    yield takeEvery(NEWS_CONSTANTS.GET_NEWS_PROCESS, get_AllNews);
-    yield takeLatest(NEWS_CONSTANTS.GET_NEWS_TYPES_PROCESS, get_Types);
-    yield takeEvery(NEWS_CONSTANTS.GET_CURRENT_NEWS_PROCESS,get_Current_News );
-    yield takeEvery(NEWS_CONSTANTS.DELETE_NEWS_PROCESS, delete_News);
-    yield takeEvery(NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_PROCESS, attach_Admin_To_News);
-    yield takeEvery(NEWS_CONSTANTS.GET_ATTACHED_ADMINS_PROCESS, get_Attached_Admins);
-    yield takeEvery(NEWS_CONSTANTS.UPDATE_NEWS_PROCESS, update_News);
-    yield takeEvery(NEWS_CONSTANTS.DELETE_IMAGE_PROCESS, delete_Image_From_Backend);
-    yield takeEvery(NEWS_CONSTANTS.DELETE_FILE_PROCESS, delete_File_From_Backend);
-    yield takeEvery(NEWS_CONSTANTS.ADD_NEWS_PROCESS, add_News);
+    yield takeEvery(NEWS_CONSTANTS.GET_NEWS_PROCESS, getAllNewsSaga);
+    yield takeLatest(NEWS_CONSTANTS.GET_NEWS_TYPES_PROCESS, getTypesSaga);
+    yield takeEvery(NEWS_CONSTANTS.GET_CURRENT_NEWS_PROCESS,getCurrentNewsSaga );
+    yield takeEvery(NEWS_CONSTANTS.DELETE_NEWS_PROCESS, deleteNewsSaga);
+    yield takeEvery(NEWS_CONSTANTS.ATTACH_ADMIN_TO_NEWS_PROCESS, attachAdminToNewsSaga);
+    yield takeEvery(NEWS_CONSTANTS.GET_ATTACHED_ADMINS_PROCESS, getAttachedAdminsSaga);
+    yield takeEvery(NEWS_CONSTANTS.UPDATE_NEWS_PROCESS, updateNewsSaga);
+    yield takeEvery(NEWS_CONSTANTS.DELETE_IMAGE_PROCESS, deleteImageFromBackendSaga);
+    yield takeEvery(NEWS_CONSTANTS.DELETE_FILE_PROCESS, deleteFileFromBackendSaga);
+    yield takeEvery(NEWS_CONSTANTS.ADD_NEWS_PROCESS, addNewsSaga);
     yield takeEvery(NEWS_CONSTANTS.SEND_DATA_FOR_PDF_PROCESS, sendDataToUserWithPdfFormatSaga)
   }

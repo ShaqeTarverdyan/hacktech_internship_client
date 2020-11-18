@@ -24,8 +24,8 @@ import {
 function* getAdminsSaga({payload}) {
     try{
         yield put({ type: AUTH_CONSTANTS.GET_ADMINS_LOADING});
-        const admins = yield call(getAdmins, payload);
-        yield put({ type: AUTH_CONSTANTS.GET_ADMINS_COMPLETED, payload: admins})
+        const adminsRequest = yield call(getAdmins, payload);
+        yield put({ type: AUTH_CONSTANTS.GET_ADMINS_COMPLETED, payload: adminsRequest})
     } catch(err) {
         yield put({type: AUTH_CONSTANTS.GET_ADMINS_ERROR, payload: err.message})
     }
@@ -39,8 +39,8 @@ function* logInSaga({payload}) {
     try{
         const { admin, history } = payload;
         yield put({ type: AUTH_CONSTANTS.ADMIN_LOGIN_LOADING});
-        const login = yield call(logIn, admin, history);
-        yield put({type: AUTH_CONSTANTS.ADMIN_LOGIN_COMPLETED, payload: login})
+        const loginRequest = yield call(logIn, admin, history);
+        yield put({type: AUTH_CONSTANTS.ADMIN_LOGIN_COMPLETED, payload: loginRequest});
     } catch(err) {
         yield put({type: AUTH_CONSTANTS.ADMIN_LOGIN_ERROR, payload: err.response})
     }
@@ -60,8 +60,8 @@ function* signUpSaga({payload}) {
 function* getAttachedNewsSaga() {
     try{
       yield put({ type: AUTH_CONSTANTS.GET_ATTACHED_NEWS_LOADING});
-      const attachedNews = yield call(getAttachedNews);
-      yield put({ type: AUTH_CONSTANTS.GET_ATTACHED_NEWS_COMPLETED, payload:attachedNews})
+      const attachedNewsRequest = yield call(getAttachedNews);
+      yield put({ type: AUTH_CONSTANTS.GET_ATTACHED_NEWS_COMPLETED, payload: attachedNewsRequest})
     } catch(err) {
       yield put({ type: AUTH_CONSTANTS.GET_ATTACHED_NEWS_ERROR, payload: err}) 
     }
@@ -70,8 +70,8 @@ function* getAttachedNewsSaga() {
   function* getAdminSaga({payload: {id}}) {
     try{
       yield put({type: AUTH_CONSTANTS.GET_ADMIN_LOADING});
-      const admin = yield call(getAdmin, id);
-      yield put({type: AUTH_CONSTANTS.GET_ADMIN_COMPLETED, payload: admin})
+      const getAdminRequest = yield call(getAdmin, id);
+      yield put({type: AUTH_CONSTANTS.GET_ADMIN_COMPLETED, payload: getAdminRequest})
     } catch(err) {
       yield put({type: AUTH_CONSTANTS.GET_ADMIN_ERROR, payload: err.message})
     }
@@ -84,8 +84,8 @@ function* getAttachedNewsSaga() {
   function* updateAdminDetailsSaga({payload}) {
     try{
       yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_LOADING});
-      const updatedAdmin =yield call(updateAdminDetails, {...payload});
-      yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_COMPLETED, payloadL: updatedAdmin})
+      const updatedAdminRequest = yield call(updateAdminDetails, {...payload});
+      yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_COMPLETED, payload: updatedAdminRequest});
     }catch(err) {
       yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_ERROR, payload: err.response})
     }
@@ -93,29 +93,29 @@ function* getAttachedNewsSaga() {
 
   function* toggleConfirmationSaga({payload: id, value}) {
     try{
-      yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_LOADING});
-      const toggleconfirm =yield call(toggleConfirmation, id, value);
-      yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_COMPLETED, payload: toggleconfirm})
+      yield put({type: AUTH_CONSTANTS.CONFIRM_ADMIN_LOADING});
+      const toggleConfirmationRequest =yield call(toggleConfirmation, id, value);
+      yield put({type: AUTH_CONSTANTS.CONFIRM_ADMIN_COMPLETED, payload: toggleConfirmationRequest})
     }catch(err) {
-      yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_ERROR, payload: err.response})
+      yield put({type: AUTH_CONSTANTS.CONFIRM_ADMIN_ERROR, payload: err.response})
     }
   }
 
   function* togglePanelAdminStatusSaga({payload: id, value}) {
     try{
-      yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_LOADING});
-      const toggleconfirm =yield call(togglePanelAdminStatus, id, value);
-      yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_COMPLETED, payload: toggleconfirm})
+      yield put({type: AUTH_CONSTANTS.TOGGLE_ADMIN_STATUS_LOADING});
+      const togglePanelAdminStatusRequest =yield call(togglePanelAdminStatus, id, value);
+      yield put({type: AUTH_CONSTANTS.TOGGLE_ADMIN_STATUS_COMPLETED, payload: togglePanelAdminStatusRequest})
     }catch(err) {
-      yield put({type: AUTH_CONSTANTS.UPDATE_ADMIN_ERROR, payload: err.response})
+      yield put({type: AUTH_CONSTANTS.TOGGLE_ADMIN_STATUS_ERROR, payload: err.response})
     }
   }
 
   function* deleteAdminSaga({payload}) {
     try{
       yield put({type: AUTH_CONSTANTS.DELETE_ADMIN_LOADING});
-      const deletedAdmin = yield call(deleteAdmin, {...payload});
-      yield put({type: AUTH_CONSTANTS.DELETE_ADMIN_COMPLETED, payload: deletedAdmin});
+      const deleteAdminRequest = yield call(deleteAdmin, {...payload});
+      yield put({type: AUTH_CONSTANTS.DELETE_ADMIN_COMPLETED, payload: deleteAdminRequest});
     } catch(err) {
       yield put({type: AUTH_CONSTANTS.DELETE_ADMIN_ERROR, payload: err})
     }
@@ -160,8 +160,8 @@ export default function* authSaga() {
     yield takeEvery(AUTH_CONSTANTS.GET_ADMIN_PROCESS, getAdminSaga);
     yield takeEvery(AUTH_CONSTANTS.LOGOUT_PROCESS, logOutSaga);
     yield takeEvery(AUTH_CONSTANTS.UPDATE_ADMIN_PROCESS, updateAdminDetailsSaga);
-    yield takeEvery(AUTH_CONSTANTS.UPDATE_ADMIN_PROCESS, toggleConfirmationSaga );
-    yield takeEvery(AUTH_CONSTANTS.UPDATE_ADMIN_PROCESS,togglePanelAdminStatusSaga );
+    yield takeEvery(AUTH_CONSTANTS.CONFIRM_ADMIN_PROCESS, toggleConfirmationSaga );
+    yield takeEvery(AUTH_CONSTANTS.TOGGLE_ADMIN_STATUS_PROCESS,togglePanelAdminStatusSaga );
     yield takeEvery(AUTH_CONSTANTS.DELETE_ADMIN_PROCESS, deleteAdminSaga);
     yield takeEvery(AUTH_CONSTANTS.SEND_INVITATION_PROCESS,sendInvitationSaga );
     yield takeEvery(AUTH_CONSTANTS.GET_INVITATION_DATA_PROCESS, getInvitationDataSaga);
