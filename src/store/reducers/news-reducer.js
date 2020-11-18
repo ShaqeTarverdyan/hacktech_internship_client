@@ -53,7 +53,6 @@ export default (state = initialState, {type, payload}) => {
         }
 
         case NEWS_CONSTANTS.GET_CURRENT_NEWS_COMPLETED: {
-            console.log({payload})
             return {
                 ...newState,
                 loading: false,
@@ -122,7 +121,6 @@ export default (state = initialState, {type, payload}) => {
                 ...newState,
                 loading: false,
                 error: null,
-                newsList: [...newState.newsList, payload.news]
             }
         }
 
