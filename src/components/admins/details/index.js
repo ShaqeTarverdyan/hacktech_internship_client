@@ -6,7 +6,7 @@ import Loading from '../../loader';
 import styled from 'styled-components';
 import { Wrapper } from '../../../generalStyles';
 import { useSelector, useDispatch } from 'react-redux';
-import { isAuth } from '../../../helpers/isAuth';
+import useIsAuth from '../../../customHooks/useisAuth'
 
 const StyledDetails = styled.div`
     width: 100%
@@ -18,9 +18,7 @@ const P = styled.p`
     color: var(--color-text)
 `;
 const Details = () => {
-    useEffect(() => {
-        isAuth()
-    },[])
+    useIsAuth()
     const admin = useSelector(state => state.auth.admin);
     const dispatch= useDispatch();
     let history = useHistory();

@@ -10,7 +10,7 @@ import { Container, FormWrapper, StyledForm, StyledSelect, StyledOption } from '
 import { sendInvitation } from '../../../store/actions/action-creators/auth-action-creators';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { isAuth } from '../../../helpers/isAuth';
+import useIsAuth from '../../../customHooks/useisAuth'
 
 export const InvitationValidation = Yup.object().shape({
     email: Yup.string()
@@ -21,9 +21,7 @@ export const InvitationValidation = Yup.object().shape({
   });
 
 const Invitation = () => {
-    useEffect(() => {
-        isAuth()
-    },[])
+    useIsAuth()
     const message = useSelector(state => state.auth.message);
     const loading = useSelector(state => state.auth.loading);
     const dispatch= useDispatch();

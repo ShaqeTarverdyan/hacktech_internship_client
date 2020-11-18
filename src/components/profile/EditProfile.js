@@ -3,7 +3,7 @@ import AuthForm from '../authentication/AuthForm';
 import { updateAdminDetails, clearMessages  } from '../../store/actions/action-creators/auth-action-creators';
 import { useSelector, useDispatch } from 'react-redux';
 import * as Yup from 'yup';
-import { isAuth } from '../../helpers/isAuth';
+import useIsAuth from '../../customHooks/useisAuth'
 
 export const EditValidation = Yup.object().shape({
     firstname: Yup.string()
@@ -18,9 +18,7 @@ export const EditValidation = Yup.object().shape({
   });
 
 const EditProfile = () => {
-    useEffect(() => {
-      isAuth()
-    },[])
+  useIsAuth()
     const admin = useSelector(state => state.auth.loggedAdmin);
     const dispatch = useDispatch();
 

@@ -11,7 +11,7 @@ import Image from '../../UI/Image/Image';
 import Modale from '../../Modale';
 import AttachAdmin from '../../admins/attachAdmin';
 import { useSelector, useDispatch } from 'react-redux';
-import { isAuth } from '../../../helpers/isAuth';
+import useIsAuth from '../../../customHooks/useisAuth'
 
 const Details = styled.div`
     border: 1px solid var(--color-mainDark);
@@ -84,9 +84,7 @@ const AdminDetail = styled.div`
 
 
 const NewsDetails = () => {
-    useEffect(() => {
-        isAuth()
-    }, [])
+    useIsAuth()
     const currentNews = useSelector(state => state.news.currentNews);
     const loggedAdmin = useSelector(state => state.auth.loggedAdmin);
 

@@ -2,17 +2,13 @@ import React, { useEffect } from 'react';
 import NewsList from '../../news/newsList';
 import { getAttachedNews } from '../../../store/actions/action-creators/auth-action-creators';
 import { useSelector, useDispatch } from 'react-redux';
-import { isAuth } from '../../../helpers/isAuth';
+import useIsAuth from '../../../customHooks/useisAuth'
 
 const AdminNewsList = () => {
+    useIsAuth()
     const admin = useSelector(state => state.auth.loggedAdmin);
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        isAuth()
-    },[]);
-
     useEffect(() => {
         dispatch(getAttachedNews())
     }, [getAttachedNews]);

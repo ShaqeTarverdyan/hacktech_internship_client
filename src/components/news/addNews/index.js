@@ -3,7 +3,7 @@ import { addNews, getTypes } from '../../../store/actions/action-creators/news-a
 import NewsForm from '../newsForm';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
-import { isAuth } from '../../../helpers/isAuth';
+import useIsAuth from '../../../customHooks/useisAuth';
 
 export const NewsValidation = Yup.object().shape({
     title: Yup.string()
@@ -15,15 +15,14 @@ export const NewsValidation = Yup.object().shape({
   });
 
 const AddNews = () => {
-  useEffect(() => {
-    isAuth()
-  },[])
+  useIsAuth();
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getTypes());
     },[getTypes])
+
     return (
         <NewsForm 
             formSubmitFunction={addNews}

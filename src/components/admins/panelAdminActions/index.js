@@ -3,12 +3,16 @@ import { togglePanelAdminStatus, toggleConfirmation } from '../../../store/actio
 import Button from '../../UI/Button';
 import { Buttonstyle } from '../../news/newsItem';
 import { useDispatch } from 'react-redux';
-
+import styled from 'styled-components'
+const ActionWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+`
 
 const PanelAdminActions = ({id, status, isConfirmed}) => {
     const dispatch = useDispatch();
     return (
-        <>
+        <ActionWrapper>
            {
                 isConfirmed === true &&
                 <Button style={Buttonstyle} onClick={() => dispatch(togglePanelAdminStatus(id, !status))}>
@@ -18,7 +22,7 @@ const PanelAdminActions = ({id, status, isConfirmed}) => {
             <Button style={Buttonstyle} onClick={() => dispatch(toggleConfirmation(id, !isConfirmed))}>
                 {isConfirmed === true ? 'DeConfirm': 'Confirm'}
             </Button>
-        </>
+        </ActionWrapper>
     )
 };
 

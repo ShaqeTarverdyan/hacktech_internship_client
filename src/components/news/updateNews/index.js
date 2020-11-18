@@ -12,12 +12,10 @@ import Loading from '../../loader';
 import Error from '../../errorPage';
 import { useSelector, useDispatch } from 'react-redux';
 import { NewsValidation } from '../addNews';
-import { isAuth } from '../../../helpers/isAuth';
+import useIsAuth from '../../../customHooks/useisAuth'
 
 const UpdateNews = () => {
-    useEffect(() => {
-        isAuth()
-    },[])
+    useIsAuth()
     const loading = useSelector(state => state.news.loading);
     const error = useSelector(state => state.news.error);
     const currentNews = useSelector(state => state.news.currentNews);

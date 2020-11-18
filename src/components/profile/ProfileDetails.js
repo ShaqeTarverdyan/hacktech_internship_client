@@ -5,7 +5,7 @@ import Loading from '../loader';
 import styled from 'styled-components';
 import Button from '../UI/Button';
 import { useSelector, useDispatch } from 'react-redux';
-import { isAuth } from '../../helpers/isAuth';
+import useIsAuth from '../../customHooks/useisAuth';
 
 const StyledProfile = styled.div`
     width: 65%;
@@ -27,9 +27,8 @@ const LI= styled.li`
     margin: auto;
 `;
 const ProfileDetails = () => {
-    useEffect(() => {
-        isAuth()
-    },[])
+    useIsAuth()
+   
     const admin = useSelector(state => state.auth.loggedAdmin);
     const dispatch = useDispatch();
     const { id, firstname, lastname, email, role } = admin
