@@ -21,7 +21,7 @@ const EditProfile = () => {
     useEffect(() => {
       isAuth()
     },[])
-    const admin = useSelector(state => state.auth.admin);
+    const admin = useSelector(state => state.auth.loggedAdmin);
     const dispatch = useDispatch();
 
     useEffect(() => {

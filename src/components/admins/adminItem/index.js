@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { deleteAdmin } from '../../../store/actions/action-creators/auth-action-creators';
 import styled from 'styled-components';
 import Button from '../../UI/Button';
-import { useDispatch }from 'react-redux';
+import { useDispatch, useSelector }from 'react-redux';
 
 const StyledItem = styled.div`
     font-size: 2rem;
@@ -12,6 +12,7 @@ const StyledItem = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    opacity: ${({ isActive }) => (isActive ? '1' : '0.4')};
 `;
 
 const Actions = styled.div`
@@ -27,10 +28,11 @@ const ButtonStyle = {
     "borderRadius": "1rem"
 }
 const AdminItem = ({ item }) => {
-    const { id, email, role } = item;
-    const dispatch = useDispatch()
+    const { id, email, role, isActive } = item;
+    const dispatch = useDispatch();
+    const logedinAdmin = useSelector(state => state.auth.loggedAdmin)
     return (
-        <StyledItem>
+        <StyledItem isActive={isActive}>
             <div>
                 <p>Email: {email}</p>
                 <p>Role: {role}</p>
@@ -44,7 +46,11 @@ const AdminItem = ({ item }) => {
                 }}>
                     <Button style={ButtonStyle}>Details</Button>
                 </Link>
-                <Button style={ButtonStyle} onClick={() => dispatch(deleteAdmin(id))}>Delete</Button>
+                <Button 
+                    style={ButtonStyle} 
+                    onClick={() => dispatch(deleteAdmin(id))}
+                    disabled={logedinAdmin.id === id}
+                >Delete</Button>
             </Actions>
         </StyledItem>
     )

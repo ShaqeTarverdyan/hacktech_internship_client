@@ -10,6 +10,7 @@ import { isAuth } from '../../helpers/isAuth';
 const Dashboard = () => {
     const dispatch = useDispatch();
     useEffect(() => {
+        console.log("newsList", newsList)
         dispatch(getNewsList())
     },[getNewsList])
 
@@ -18,7 +19,7 @@ const Dashboard = () => {
         isAuth()
     },[])
     const newsList = useSelector(state => state.news.newsList);
-    const admin = useSelector(state => state.auth.admin)
+    const admin = useSelector(state => state.auth.loggedAdmin)
     let history = useHistory();
     if(!admin) {
         history.push("/login")
@@ -27,7 +28,7 @@ const Dashboard = () => {
         <>
             <h1 style={{textAlign: 'center',margin: "5%"}}>All News</h1>
             <NewsList
-                newsList={newsList || <Loading/>}
+                newsList={newsList}
                 showTypes={true}
                 showPagination={true}
                 showReportFunctionality={false}

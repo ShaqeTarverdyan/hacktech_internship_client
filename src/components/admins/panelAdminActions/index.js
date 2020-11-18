@@ -11,11 +11,11 @@ const PanelAdminActions = ({id, status, isConfirmed}) => {
         <>
            {
                 isConfirmed === true &&
-                <Button style={Buttonstyle}onClick={() => dispatch(togglePanelAdminStatus(id, !status))}>
+                <Button style={Buttonstyle} onClick={() => dispatch(togglePanelAdminStatus(id, !status))}>
                     {status === true ? 'Block' : 'Activate'}
                 </Button>
            } 
-            <Button style={Buttonstyle}onClick={() => dispatch(toggleConfirmation(id, !isConfirmed))}>
+            <Button style={Buttonstyle} onClick={() => dispatch(toggleConfirmation(id, !isConfirmed))}>
                 {isConfirmed === true ? 'DeConfirm': 'Confirm'}
             </Button>
         </>

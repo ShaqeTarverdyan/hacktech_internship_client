@@ -21,7 +21,7 @@ const Container = styled.div`
 const Navbar = () => {
     const dispatch = useDispatch();
     const token = localStorage.getItem("token");
-    const loggedAdmin = useSelector(state => state.auth.admin)
+    const loggedAdmin = useSelector(state => state.auth.loggedAdmin)
     useEffect(() => {
         token && dispatch(getLoggedAdmin(token))
     },[getLoggedAdmin, token])

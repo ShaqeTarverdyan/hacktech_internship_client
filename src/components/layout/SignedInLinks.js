@@ -25,7 +25,7 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 const SignedInLinks = () => {
-    const admin_id = useSelector(state => state.auth.admin_id);
+    const admin_id = useSelector(state => state.auth.loggedAdmin.id);
     const admins = useSelector(state => state.auth.admins);
     const dispatch = useDispatch();
     const curentAdmin = admins.filter(admin => admin.id == admin_id)[0];

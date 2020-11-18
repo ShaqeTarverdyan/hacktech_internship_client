@@ -21,7 +21,6 @@ const UpdateNews = () => {
     const loading = useSelector(state => state.news.loading);
     const error = useSelector(state => state.news.error);
     const currentNews = useSelector(state => state.news.currentNews);
-    const admin_id = useSelector(state => state.auth.admin_id);
     const imageLoading = useSelector(state => state.news.imageLoading);
     const dispatch = useDispatch();
     let history = useHistory();
@@ -52,7 +51,6 @@ const UpdateNews = () => {
                 title: currentNews.title || '',
                 content: currentNews.content || '',
                 typeId: currentNews.type_id || '',
-                admin_id: admin_id,
                 images: currentNews.news_images || [],
                 files: currentNews.news_files || []
             }}

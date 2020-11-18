@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { isAuth } from '../../../helpers/isAuth';
 
 const AdminNewsList = () => {
-    const admin = useSelector(state => state.auth.admin);
+    const admin = useSelector(state => state.auth.loggedAdmin);
 
     const dispatch = useDispatch();
 

@@ -30,12 +30,12 @@ const ProfileDetails = () => {
     useEffect(() => {
         isAuth()
     },[])
-    const admin = useSelector(state => state.auth.admin);
+    const admin = useSelector(state => state.auth.loggedAdmin);
     const dispatch = useDispatch();
     const { id, firstname, lastname, email, role } = admin
     useEffect(() => {
-        dispatch(getAdmin (id))
-    }, [getAdmin, id]);
+        dispatch(getAdmin(id))
+    },[getAdmin]);
 
     return (
         <StyledProfile>

@@ -21,14 +21,15 @@ const AcceptAdmins = () => {
                     admins
                         .filter(admin => admin.role === 'panel')
                         .map(({id, firstname, lastname, email, role, isActive, isConfirmed}) => (
-                        <li>
+                        <li key={id}>
                             <p>First Name: {firstname}</p>
                             <p>last name: {lastname}</p>
                             <p>email: {email}</p>
                             <p>role: {role}</p>
                             <p>isActive: {isActive === false ? 'false' : 'true'}</p>
+                            <div>
                             <PanelAdminActions id={id} status={isActive} isConfirmed={isConfirmed}/>
-
+                            </div>
                         </li>
                     ))
                 }

@@ -38,6 +38,7 @@ const AdminsList = ( ) => {
   const admins = useSelector(state =>  state.auth.admins);
   const admin_id = useSelector(state =>  state.auth.admin_id);
   const loading = useSelector(state =>  state.auth.loading);
+  const loggedAdminId = useSelector(state => state.auth.loggedAdmin.id);
 
   const [selectedValue, setSelectedValue] = useState('');
   const dispatch = useDispatch()
@@ -48,7 +49,7 @@ const AdminsList = ( ) => {
 
 
   const adminsList = admins
-    ? admins.filter((admin) => admin.id !== admin_id)
+    ? admins.filter((admin) => admin.id !== loggedAdminId)
     : [];
 
   const getAdminRole = (event) => {

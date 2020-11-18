@@ -88,7 +88,7 @@ const NewsDetails = () => {
         isAuth()
     }, [])
     const currentNews = useSelector(state => state.news.currentNews);
-    const admin = useSelector(state => state.auth.admin);
+    const loggedAdmin = useSelector(state => state.auth.loggedAdmin);
 
     const dispatch = useDispatch();
 
@@ -105,7 +105,7 @@ const NewsDetails = () => {
     useEffect(() => {
         dispatch(getCurrentNews(currentNewsId));
     },[getCurrentNews, currentNewsId])
-    const signedInAdminsNews = admin && admin.news ? admin.news.find(item => item.id == currentNews.id) : '';
+    const signedInAdminsNews = loggedAdmin && loggedAdmin.news ? loggedAdmin.news.find(item => item.id == currentNews.id) : '';
 
     return(
         <>

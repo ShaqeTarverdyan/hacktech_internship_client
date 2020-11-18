@@ -36,7 +36,7 @@ const NewsList = ({
     const loading = useSelector(state => state.news.loading);
     const totalPages = useSelector(state => state.news.totalPages);
     const isShownModal = useSelector(state => state.app.isShownModal);
-    const admin = useSelector(state => state.auth.admin);
+    const admin = useSelector(state => state.auth.loggedAdmin);
 
     const dispatch = useDispatch();
     const [linkedNewsIds, setLinkedNewsIds] = useState([]);

@@ -27,7 +27,7 @@ const Details = () => {
     const historyPathname = history.location.pathname;
     const splitedPathname = historyPathname.split(/([0-9]+)/);
     const currentAdminId = JSON.parse(splitedPathname[1]);
-
+    const loggedAdmin = useSelector(state => state.auth.loggedAdmin)
     useEffect(() => {
         dispatch(getAdmin(currentAdminId));
     }, [getAdmin, currentAdminId]);
@@ -44,7 +44,7 @@ const Details = () => {
                     <P>Role: {admin.role}</P>
                     <P>IsActive: {admin.isActive === false ? 'false' : 'true'}</P>
                    {
-                       admin.role === 'panel' &&
+                       loggedAdmin.role === 'super' &&
                        <PanelAdminActions 
                             id={admin.id} 
                             status={admin.isActive}
