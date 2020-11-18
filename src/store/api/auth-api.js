@@ -28,7 +28,7 @@ export const logIn = async(admin,history) => {
     if(result.status === 200) {
         history.push('/news')
     }
-
+    return result.data.loggedAdmin
 }
 
 export const getLoggedAdmin = async() => {
@@ -65,7 +65,6 @@ export const getAdmins = async(role) => {
 }
 
 export const getAdmin = async(admin_id) => {
-    console.log({admin_id})
     const result = await Axios.get(`/admin/${admin_id}`,{
         headers: {
             Authorization: 'Bearer' + localStorage.getItem("token")
@@ -89,6 +88,7 @@ export const updateAdminDetails = async({admin, history}) => {
     if(result.status === 200) {
         history.push("/profile")
     }
+    return result.data.admin
 }
 
 
@@ -123,10 +123,7 @@ export const deleteAdmin = async({admin_id}) => {
     )
     const getAdmins = await getAdmins();
     if(result.status === 200) {
-        return {
-            admin_id,
-            getAdmins
-        }
+        return getAdmins
     }
 };
 

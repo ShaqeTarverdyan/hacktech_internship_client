@@ -44,7 +44,7 @@ export const addNews = async ({news, history}) => {
     if(response.status === 200) {
         history.push('/adminsNews')
     }
-    return response.data.news
+    return
 }
 
 export const updateNews = async({updatedNews, history}) => {
@@ -74,9 +74,8 @@ export const updateNews = async({updatedNews, history}) => {
         },
     });
     if(response.status === 200) {
-        history.push('/news')  ;
+        history.push('/adminsNews')  ;
     }
-    // return response.data.news
 }
 
 export const deleteNews = async (newsId, history) => {
@@ -139,7 +138,6 @@ export const deleteFileFromBackend = async(path, newsId) => {
     }
 }
 export const  sendDataToUserWithPdfFormat = async({fileIds, email}) => {
-    console.log('fileIds, email', fileIds, email)
     const result = await Axios.post('/sendDataToUserWithPdfFormat', {
         newsIds: fileIds,
         email: email,
